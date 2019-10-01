@@ -33,12 +33,12 @@ def plotDots(d, dest='plot'):
     left, width = 0.05, 0.90
     bottom, height = 0.05, 0.95
     rect_scatter = [left, bottom, width, height]
-    fig = Figure()
-    fig.set_window_title('Test')
 
     title = "Scatter Plot of {:,} digits of PI()".format(len(d[0])-2) 
 
     axScatter = plt.axes(arg=rect_scatter, frameon = False, aspect='auto')
+    plt.axis('off')
+    plt.title(title)
 
     for i in range(DataBuckets):
         if i == 0:

@@ -6,7 +6,7 @@ import csv
 from datetime import datetime
 
 print(datetime.now(), 'Please wait.  Calculating pi()...')
-pi=CalcPi(10000)
+pi=CalcPi(1000000)
 
 # Save the results of PI()
 writeFile = open('C:\\Users\\csb003\\Desktop\\PythonProjects\\Pi() projects\\PiDigits.txt', 'w+t')

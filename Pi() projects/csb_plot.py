@@ -100,22 +100,25 @@ def plotHeatMap(d, dest='plot'):
     # contour
     axes[5].set_title('Contour')
     axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
-    axes[5].contour(xi, yi, zi.reshape(xi.shape) )
-    # X = sp.filters.gaussian_filter(x, sigma = 2, order = 0)
-    # Y = sp.filters.gaussian_filter(y, sigma = 2, order = 0)
+    axes[5].contour(xi, yi, zi.reshape(xi.shape))
 
-    # title = "Heatmap of {:,} digits of PI()".format(len(d[0])-2)
-    # plt.title(title)
+    # previous attemp
+        # X = sp.filters.gaussian_filter(x, sigma = 2, order = 0)
+        # Y = sp.filters.gaussian_filter(y, sigma = 2, order = 0)
 
-    # fig, axes = plt.subplots(ncols=6, nrows=1, figsize=(21, 5))
+        # title = "Heatmap of {:,} digits of PI()".format(len(d[0])-2)
+        # plt.title(title)
 
-    # heatmap, xedges, yedges = np.histogram2d(X, Y, bins=150)
-    # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+        # fig, axes = plt.subplots(ncols=6, nrows=1, figsize=(21, 5))
 
-    # # https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html?highlight=ylorrd
-    # plt.imshow(heatmap, extent=extent, cmap='hot')
-    # plt.colorbar()
+        # heatmap, xedges, yedges = np.histogram2d(X, Y, bins=150)
+        # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
 
-    # # plt.xlabel("X")
-    # # plt.ylabel("Y")
+        # # https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html?highlight=ylorrd
+        # plt.imshow(heatmap, extent=extent, cmap='hot')
+        # plt.colorbar()
+
+        # # plt.xlabel("X")
+        # # plt.ylabel("Y")
+
     plt.show()    

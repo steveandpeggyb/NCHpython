@@ -4,6 +4,7 @@ import seaborn as sb; sb.set()
 from datetime import datetime
 import scipy.ndimage as sp
 from matplotlib.figure import Figure
+from scipy.stats import kde
 
 def split_list(alist, wanted_parts=1):
     length = len(alist)
@@ -66,19 +67,55 @@ def plotHeatMap(d, dest='plot'):
     x = d[0]
     y = d[1]
 
-    X = sp.filters.gaussian_filter(x, sigma = 2, order = 0)
-    Y = sp.filters.gaussian_filter(y, sigma = 2, order = 0)
+    # Create a figure with 6 plot areas
+    fig, axes = plt.subplots(ncols=6, nrows=1, figsize=(21, 5))
+    
+    # Everything sarts with a Scatterplot
+    axes[0].set_title('Scatterplot')
+    axes[0].plot(x, y, 'ko')
+    # As you can see there is a lot of overplottin here!
+    
+    # Thus we can cut the plotting window in several hexbins
+    nbins = 20
+    axes[1].set_title('Hexbin')
+    axes[1].hexbin(x, y, gridsize=nbins, cmap=plt.cm.BuGn_r)
+    
+    # 2D Histogram
+    axes[2].set_title('2D Histogram')
+    axes[2].hist2d(x, y, bins=nbins, cmap=plt.cm.BuGn_r)
+    
+    # # Evaluate a gaussian kde on a regular grid of nbins x nbins over data extents
+    k = kde.gaussian_kde([x,y])
+    xi, yi = np.mgrid[min(x):max(x):nbins*1j, min(y):max(y):nbins*1j]
+    zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+    
+    # plot a density
+    axes[3].set_title('Calculate Gaussian KDE')
+    axes[3].pcolormesh(xi, yi, zi.reshape(xi.shape), cmap=plt.cm.BuGn_r)
+    
+    # add shading
+    axes[4].set_title('2D Density with shading')
+    axes[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
+    
+    # contour
+    axes[5].set_title('Contour')
+    axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
+    axes[5].contour(xi, yi, zi.reshape(xi.shape) )
+    # X = sp.filters.gaussian_filter(x, sigma = 2, order = 0)
+    # Y = sp.filters.gaussian_filter(y, sigma = 2, order = 0)
 
-    title = "Heatmap of {:,} digits of PI()".format(len(d[0])-2)
-    plt.title(title)
+    # title = "Heatmap of {:,} digits of PI()".format(len(d[0])-2)
+    # plt.title(title)
 
-    heatmap, xedges, yedges = np.histogram2d(X, Y, bins=150)
-    extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+    # fig, axes = plt.subplots(ncols=6, nrows=1, figsize=(21, 5))
 
-    # https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html?highlight=ylorrd
-    plt.imshow(heatmap, extent=extent, cmap='hot')
-    plt.colorbar()
+    # heatmap, xedges, yedges = np.histogram2d(X, Y, bins=150)
+    # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
 
-    # plt.xlabel("X")
-    # plt.ylabel("Y")
+    # # https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html?highlight=ylorrd
+    # plt.imshow(heatmap, extent=extent, cmap='hot')
+    # plt.colorbar()
+
+    # # plt.xlabel("X")
+    # # plt.ylabel("Y")
     plt.show()    

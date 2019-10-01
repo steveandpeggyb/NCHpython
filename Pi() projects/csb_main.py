@@ -26,8 +26,8 @@ writeFile.close()
 print(datetime.now(), 'Please wait.  plotting pi()...')
 # build scope
 # dest = 'save'
-dest = 'plot'
-# dest = 'both'
+# dest = 'plot'
+dest = 'both'
 
 # plotHeatMap(output)
 plotDots(output)

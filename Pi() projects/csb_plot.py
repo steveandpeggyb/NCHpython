@@ -52,14 +52,14 @@ def plotDots(d, dest='plot'):
     if dest == 'both':
         plt.show()
         plt.savefig('C:\\Temp\\PIplotOutput.jpg', type='jpg', dpi=300)
-        print(datetime.now(), 'Plot Saved and Displayed.')
+        print(datetime.now(), 'Plot Saved to "C:\\Temp\\PIplotOutput.jpg" and Displayed.')
     if dest == 'plot':
         plt.show()
         print(datetime.now(), 'Plot Displayed')
     if dest == 'save':
         plt.plot(x,y, 'b,', markersize=1)
         plt.savefig('C:\\Temp\\PIplotOutput.jpg', type='jpg', dpi=300)
-        print(datetime.now(), 'Plot Saved.')
+        print(datetime.now(), 'Plot Saved to "C:\\Temp\\PIplotOutput.jpg".')
 
 def plotHeatMap(d, dest='plot'):
     x = d[0]

@@ -62,7 +62,6 @@ def plotDots(d, dest='plot'):
         plt.savefig('C:\\Temp\\PIplotOutput.jpg', type='jpg', dpi=300)
         print(datetime.now(), 'Plot Saved.')
 
-
 def plotHeatMap(d, dest='plot'):
     x = d[0]
     y = d[1]

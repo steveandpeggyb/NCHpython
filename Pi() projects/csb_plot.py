@@ -34,7 +34,7 @@ def plotDots(d, dest='plot'):
     bottom, height = 0.05, 0.95
     rect_scatter = [left, bottom, width, height]
     fig = Figure()
-    fig.canvas.set_window_title('Test')
+    fig.set_window_title('Test')
 
     title = "Scatter Plot of {:,} digits of PI()".format(len(d[0])-2) 
 

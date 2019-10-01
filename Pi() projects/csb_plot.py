@@ -34,11 +34,12 @@ def plotDots(d, dest='plot'):
     bottom, height = 0.05, 0.95
     rect_scatter = [left, bottom, width, height]
 
-    title = "Scatter Plot of {:,} digits of PI()".format(len(d[0])-2) 
+    title = "\nScatter Plot of {:,} digits of PI()".format(len(d[0])-2) 
+    
+    # plt.title(title, fontsize=20, fontweight=0, color='purple', loc='left', style='italic')
 
     axScatter = plt.axes(arg=rect_scatter, frameon = False, aspect='auto')
     plt.axis('off')
-    plt.title(title)
 
     for i in range(DataBuckets):
         if i == 0:
@@ -52,11 +53,9 @@ def plotDots(d, dest='plot'):
         plt.show()
         plt.savefig('C:\\Temp\\PIplotOutput.jpg', type='jpg', dpi=300)
         print(datetime.now(), 'Plot Saved and Displayed.')
-
     if dest == 'plot':
         plt.show()
         print(datetime.now(), 'Plot Displayed')
-
     if dest == 'save':
         plt.plot(x,y, 'b,', markersize=1)
         plt.savefig('C:\\Temp\\PIplotOutput.jpg', type='jpg', dpi=300)

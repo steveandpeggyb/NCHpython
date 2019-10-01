@@ -30,6 +30,6 @@ print(datetime.now(), 'Please wait.  plotting pi()...')
 dest = 'both'
 
 # plotHeatMap(output)
-plotDots(output)
+plotDots(output, dest)
 
 print(datetime.now(), 'Done!')

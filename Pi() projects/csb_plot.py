@@ -55,13 +55,14 @@ def plotDots(d, dest='plot'):
         print(datetime.now(), 'Plot Saved to "C:\\Temp\\PIplotOutput.jpg" and Displayed.')
     if dest == 'plot':
         plt.show()
-        print(datetime.now(), 'Plot Displayed')
+        print(datetime.now(), 'Only Plot Displayed')
     if dest == 'save':
         plt.plot(x,y, 'b,', markersize=1)
         plt.savefig('C:\\Temp\\PIplotOutput.jpg', type='jpg', dpi=300)
         print(datetime.now(), 'Plot Saved to "C:\\Temp\\PIplotOutput.jpg".')
 
 def plotHeatMap(d, dest='plot'):
+    # https://python-graph-gallery.com/
     x = d[0]
     y = d[1]
 

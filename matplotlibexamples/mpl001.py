@@ -1,4 +1,5 @@
-
+# run the "data_gen.py" script from the command line.  This will automatically add a new data point every second to the
+# csv file.  Then, run this script and see an automated update of that csv file data.
 import random
 from itertools import count
 import pandas as pd
@@ -14,7 +15,7 @@ index = count()
 
 
 def animate(i):
-    data = pd.read_csv('data.csv')
+    data = pd.read_csv('c:\\TEMP\\data.csv')
     x = data['x_value']
     y1 = data['total_1']
     y2 = data['total_2']

@@ -1,12 +1,11 @@
 from csb_pi import CalcPi
 from csb_navigate import calcVector
-from csb_plot import plotHeatMap
-from csb_plot import plotDots
+from csb_plot import *
 import csv
 from datetime import datetime
 
 print(datetime.now(), 'Please wait.  Calculating pi()...')
-pi=CalcPi(1000000)
+pi=CalcPi(10000)
 
 # Save the results of PI()
 writeFile = open('C:\\Users\\csb003\\Desktop\\PythonProjects\\Pi() projects\\PiDigits.txt', 'w+t')
@@ -29,10 +28,9 @@ print(datetime.now(), 'Please wait.  plotting pi()...')
 # dest = 'plot'
 dest = 'both'
 
-# plotHeatMap(output)
-plotHeatMap(output, dest)
-
-# plotDots(output)
+# plotHeatMap(output, dest)
 # plotDots(output, dest)
+plotDensity(output, dest)
+# plotDensity2(output, dest)
 
 print(datetime.now(), 'Done!')

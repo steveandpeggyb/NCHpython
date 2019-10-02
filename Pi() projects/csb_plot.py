@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb; sb.set()
 from datetime import datetime
@@ -62,63 +63,88 @@ def plotDots(d, dest='plot'):
         plt.savefig('C:\\Temp\\PIplotOutput.jpg', type='jpg', dpi=300)
         print(datetime.now(), 'Plot Saved to "C:\\Temp\\PIplotOutput.jpg".')
 
-def plotHeatMap(d, dest='plot'):
+def plotDensity(d, dest='plot'):
+
     # https://python-graph-gallery.com/
     x = d[0]
     y = d[1]
 
     # Create a figure with 6 plot areas
-    fig, axes = plt.subplots(ncols=6, nrows=1, figsize=(21, 5))
+    fig, ax = plt.subplots(nrows=2, ncols=1, figsize=(21, 5))
     
     # Everything sarts with a Scatterplot
-    axes[0].set_title('Scatterplot')
-    axes[0].plot(x, y, 'ko')
+    ax[0].set_title('Scatterplot')
+    ax[0].plot(x, y, 'ko')
     # As you can see there is a lot of overplottin here!
     
     # Thus we can cut the plotting window in several hexbins
     nbins = 20
-    axes[1].set_title('Hexbin')
-    axes[1].hexbin(x, y, gridsize=nbins, cmap=plt.cm.BuGn_r)
+    ax[1].set_title('Hexbin')
+    ax[1].hexbin(x, y, gridsize=nbins, cmap=plt.cm.BuGn_r)
     
-    # 2D Histogram
-    axes[2].set_title('2D Histogram')
-    axes[2].hist2d(x, y, bins=nbins, cmap=plt.cm.BuGn_r)
+    # # 2D Histogram
+    # ax[2].set_title('2D Histogram')
+    # ax[2].hist2d(x, y, bins=nbins, cmap=plt.cm.BuGn_r)
     
-    # # Evaluate a gaussian kde on a regular grid of nbins x nbins over data extents
-    k = kde.gaussian_kde([x,y])
-    xi, yi = np.mgrid[min(x):max(x):nbins*1j, min(y):max(y):nbins*1j]
-    zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+    # # # Evaluate a gaussian kde on a regular grid of nbins x nbins over data extents
+    # k = kde.gaussian_kde([x,y])
+    # xi, yi = np.mgrid[min(x):max(x):nbins*1j, min(y):max(y):nbins*1j]
+    # zi = k(np.vstack([xi.flatten(), yi.flatten()]))
     
-    # plot a density
-    axes[3].set_title('Calculate Gaussian KDE')
-    axes[3].pcolormesh(xi, yi, zi.reshape(xi.shape), cmap=plt.cm.BuGn_r)
+    # # plot a density
+    # ax[3].set_title('Calculate Gaussian KDE')
+    # ax[3].pcolormesh(xi, yi, zi.reshape(xi.shape), cmap=plt.cm.BuGn_r)
     
-    # add shading
-    axes[4].set_title('2D Density with shading')
-    axes[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
+    # # add shading
+    # ax[4].set_title('2D Density with shading')
+    # ax[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
     
     # contour
-    axes[5].set_title('Contour')
-    axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
-    axes[5].contour(xi, yi, zi.reshape(xi.shape))
+    ax[5].set_title('Contour')
+    ax[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
+    ax[5].contour(xi, yi, zi.reshape(xi.shape))
 
-    # previous attemp
-        # X = sp.filters.gaussian_filter(x, sigma = 2, order = 0)
-        # Y = sp.filters.gaussian_filter(y, sigma = 2, order = 0)
+    plt.tight_layout()
+    plt.show()    
 
-        # title = "Heatmap of {:,} digits of PI()".format(len(d[0])-2)
-        # plt.title(title)
+def plotHeatMap(d, dest='plot'):
+    # https://python-graph-gallery.com/
+    x = d[0]
+    y = d[1]
 
-        # fig, axes = plt.subplots(ncols=6, nrows=1, figsize=(21, 5))
+    plt.style.use('seaborn')
+ 
+    # Dataset:
+    df=pd.DataFrame({'x': np.random.normal(10, 1.2, 20000), 'y': np.random.normal(10, 1.2, 20000), 'group': np.repeat('A',20000) })
+    tmp1=pd.DataFrame({'x': np.random.normal(14.5, 1.2, 20000), 'y': np.random.normal(14.5, 1.2, 20000), 'group': np.repeat('B',20000) })
+    tmp2=pd.DataFrame({'x': np.random.normal(9.5, 1.5, 20000), 'y': np.random.normal(15.5, 1.5, 20000), 'group': np.repeat('C',20000) })
+    df=df.append(tmp1).append(tmp2)
+    
+    # Plot with transparency
+    plt.plot( 'x', 'y', data=df, linestyle='', marker='o', markersize=3, alpha=0.05, color="purple")
+    
+    # plot
+    plt.plot( 'x', 'y', data=df, linestyle='', marker='o')
+    plt.xlabel('Value of X')
+    plt.ylabel('Value of Y')
+    plt.title('Overplotting looks like that:', loc='left')
 
-        # heatmap, xedges, yedges = np.histogram2d(X, Y, bins=150)
-        # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+def plotDensity2(d, dest='plot'):
+    
+    # https://python-graph-gallery.com/
+    x = d[0]
+    y = d[1]
 
-        # # https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html?highlight=ylorrd
-        # plt.imshow(heatmap, extent=extent, cmap='hot')
-        # plt.colorbar()
+    X = sp.filters.gaussian_filter(x, sigma = 2, order = 0)
+    Y = sp.filters.gaussian_filter(y, sigma = 2, order = 0)
 
-        # # plt.xlabel("X")
-        # # plt.ylabel("Y")
+    title = "Heatmap of {:,} digits of PI()".format(len(d[0])-2)
+    plt.title(title)
 
+    heatmap, xedges, yedges = np.histogram2d(X, Y, bins=150)
+    extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+
+    # https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html?highlight=ylorrd
+    plt.imshow(heatmap, extent=extent, cmap='hot')
+    plt.colorbar()
     plt.show()    

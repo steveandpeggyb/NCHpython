@@ -4,14 +4,16 @@ import ssl
 # from ldap3.utils.dn import safe_rdn
 
 def main(snName):
+    print('\n<<<<<<<<<<<<<<<<<<<<<<<<<< LDAP Setup >>>>>>>>>>>>>>>>>>>>>>>>>>\n')
     tls = Tls(validate=ssl.CERT_NONE, version=ssl.PROTOCOL_TLSv1)
+    print('tls: ',tls)
     # Create the Server object with the given address.
     server = Server('RPW-DC03.crii.org', use_ssl=True, tls=tls)
-
+    print('Server:', server)
     #Create a connection object, and bind with the given DN and password.
     try:
         conn = Connection(server, auto_bind=True)
-        print('\n<<<<<<<<<<<<<<<<<<<<<<<<<< LDAP Bind Successful. >>>>>>>>>>>>>>>>>>>>>>>>>>')
+        print('\n<<<<<<<<<<<<<<<<<<<<<<<<<< LDAP Bind Successful. >>>>>>>>>>>>>>>>>>>>>>>>>>\n')
         
         # Perform a search for a pre-defined criteria.
         # Mention the search filter / filter type and attributes.
@@ -29,4 +31,5 @@ def main(snName):
         
         # If the LDAP bind failed for reasons such as authentication failure.
         print('######################################################    LDAP Bind Failed: ', e) 
-print('Returned information: ', main('Blake'), '\n')
+print('Returned information: ', main('Blake'))
+print('\n<<<<<<<<<<<<<<<<<<<<<<<<<< LDAP Bind Successful. >>>>>>>>>>>>>>>>>>>>>>>>>>\n')

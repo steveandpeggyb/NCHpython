@@ -1,23 +1,28 @@
 from ldap3 import Server, Connection, MODIFY_ADD, MODIFY_REPLACE, ALL_ATTRIBUTES
 from ldap3.utils.dn import safe_rdn
+from ldap3 import NTLM
 
-server = Server('ipa.demo1.freeipa.org')
-conn = Connection(server, 'uid=admin, cn=users, cn=accounts, dc=demo1, dc=freeipa, dc=org', 'Secret123', auto_bind=True)
+LDAP_AUTHENTICATION = NTLM
+
+server = Server('RPW-DC03.crii.org')
+# conn = Connection(server, 'uid=admin, cn=users, cn=accounts, dc=demo1, dc=freeipa, dc=org', 'Secret123', auto_bind=True)
+conn = Connection(server, auto_bind=True)
 # print(0, conn.extend.standard.who_am_i())
 
-# print(server.schema)
-# print(server.info)
+print(server.schema)
+print(server.info)
 # print(server.schema.object_classes['inetorgperson'])
 # print(server.schema.object_classes['organizationalperson'])
 # print(server.schema.object_classes['person'])
 # print(server.schema.object_classes['top'])
 
-# conn.search('dc=demo1, dc=freeipa, dc=org', '(&(objectclass=person)(uid=admin))', attributes=['sn', 'krbLastPwdChange', 'objectclass'])
-# entry = conn.entries[0]
+# conn.search('dc=CRII, dc=ORG, dc=org', '(&(objectclass=person)(uid=admin))', attributes=['sn', 'krbLastPwdChange', 'objectclass'])
+conn.search('dc=CRII, dc=ORG, dc=org', '(&(objectclass=person)(uid=admin))', attributes=['sn', 'blake', 'objectclass'])
+entry = conn.entries[0]
 
-# print(entry)
+print(entry)
 
-conn.add('ou=ldap3-tutorial, dc=demo1, dc=freeipa, dc=org', 'organizationalUnit')
+# conn.add('ou=ldap3-tutorial, dc=demo1, dc=freeipa, dc=org', 'organizationalUnit')
 
 # conn.delete('cn=b.smith,ou=moved,ou=ldap3-tutorial,dc=demo1,dc=freeipa,dc=org')
 # from ldap3.protocol.rfc4527 import pre_read_control, post_read_control
@@ -67,11 +72,11 @@ conn.add('ou=ldap3-tutorial, dc=demo1, dc=freeipa, dc=org', 'organizationalUnit'
 # print(conn.compare('cn=b.smith,ou=moved,ou=ldap3-tutorial,dc=demo1,dc=freeipa,dc=org', 'departmentNumber', 'DEV'))
 # print(conn.compare('cn=b.smith,ou=moved,ou=ldap3-tutorial,dc=demo1,dc=freeipa,dc=org', 'departmentNumber', 'QA'))
 #
-# entries = conn.extend.standard.paged_search('dc=demo1, dc=freeipa, dc=org', '(objectClass=person)', attributes=['cn', 'givenName'], paged_size=5)
-#
+entries = conn.extend.standard.paged_search('dc=demo1, dc=freeipa, dc=org', '(objectClass=person)', attributes=['cn', 'givenName'], paged_size=5)
+print(entries)
 # for entry in entries:
 #     print(entry)
-#
+# #
 #
 # total_entries = 0
 # cookie = "new_cookie"

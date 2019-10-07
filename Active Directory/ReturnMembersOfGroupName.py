@@ -2,7 +2,7 @@ from pyad.adquery import ADQuery as ADQuery
 from pyad import *
 # import numpy
 
-def GetMembers(groupName):
+def GetMembersByName(groupName):
     pyad.set_defaults(ldap_server = 'RPW-DC03.crii.org')
     # user=pyad.aduser.ADUser.from_cn('Blake, Steve (csb003)')
 
@@ -21,7 +21,7 @@ def GetMembers(groupName):
             print(row["member"])
             return row["member"]
 
-Members = GetMembers("BCR Informatics Database Team")
+Members = GetMembersByName("BCR Informatics Database Team")
 
 print()
 for member in Members:

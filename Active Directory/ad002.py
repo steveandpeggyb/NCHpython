@@ -1,24 +1,16 @@
-def has_username(uid:str) -> bool:
-    """
-    Tells whether or not a uid is already used on the server.
+# import class and constants
+from ldap3 import Server, Connection, ALL
 
-    :param uid the uid being queried about
-    :returns True if the uid exists, False otherwise
-    """
-    if uid in p.BLACKLIST:
-        return True
-    ldap_server = ldap3.Server(p.LDAP_HOST, get_info=ldap3.ALL)
-    with ldap3.Connection(
-                    ldap_server,
-                    user=p.LDAP_USER,
-                    password=p.LDAP_KEY,
-                    auto_bind=True) as conn:
-    
-        return conn.search(
-                    search_base="dc=netsoc,dc=co",
-                    search_filter="(&(objectClass=account)(uid=%s))"%(
-                            ldap3.utils.conv.escape_filter_chars(uid)),
-                    attributes=["uid"],)
-    return True 
+# define the server
+s = Server('RPW-DC03.crii.org', get_info=ALL)  # define an unsecure LDAP server, requesting info on DSE and schema
+print('\n<<<<<<<   Server:   >>>>>>>\n',s)
+# define the connection
+c = Connection(s)  # define an ANONYMOUS connection
+print('\n<<<<<<<   Connections:   >>>>>>>\n',c)
+print('\n<<<<<<<   c.bind   >>>>>>>\n',c.bind)
+print('\n<<<<<<<<<<<<<>>>>>>>>>>>>>\n')
+# perform the Bind operation
+if not c.bind():
+    print('error in bind', c.result)
+    exit()
 
-print(has_username('csb003'))

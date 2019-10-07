@@ -39,3 +39,4 @@ def GetMembersByName(groupName):      # Input the group name to get the members
         if str(row["cn"])[:charLength] == groupName:
             print(row["member"])
             return row["member"]
+

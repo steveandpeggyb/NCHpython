@@ -2,7 +2,7 @@ from pyad.adquery import ADQuery as ADQuery
 from pyad import *
 # import numpy
 
-def GetMembers(group):
+def GetMembers(groupEmail):
     pyad.set_defaults(ldap_server = 'RPW-DC03.crii.org')
     # user=pyad.aduser.ADUser.from_cn('Blake, Steve (csb003)')
 
@@ -15,9 +15,9 @@ def GetMembers(group):
         where_clause = "objectClass = '*'"
     )
     results = q.get_results()
-    charLength = len(group)
+    charLength = len(groupEmail)
     for row in q.get_results():
-        if str(row["mail"])[:charLength] == group:
+        if str(row["mail"])[:charLength] == groupEmail:
             print(row["member"])
             output = row["member"]
             return output

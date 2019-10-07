@@ -1,6 +1,5 @@
 from pyad.adquery import ADQuery as ADQuery
 from pyad import *
-# import numpy
 
 def GetMembersByName(groupName):
     pyad.set_defaults(ldap_server = 'RPW-DC03.crii.org')

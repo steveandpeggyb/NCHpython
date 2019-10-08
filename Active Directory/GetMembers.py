@@ -1,7 +1,7 @@
 # from GroupMembers import GetMembersByName
 from GroupMembers import GetMembersByEmail
 
-Members = GetMembersByEmail("BCR@nationwidechildrens.org")
+Members = GetMembersByEmail("BCRInformaticsDatabaseTeamPagers@nationwidechildrens.org")
 print('\n------------------------------------------------------------')
 # print(Members)
 # print('------------------------------------------------------------')
@@ -31,15 +31,19 @@ for member in Members:
         # print('Group:', cleanup)
         continue
 
+index = 1
 if len(individuals) > 0:
     print('Users:')
     for line in individuals:
-        print('\t',line)
+        print('\t', index, line)
+        index += 1
 
+index = 1
 if len(groups) > 0:
     print('\n' + 'Groups:')
     for line in groups:
-        print('\t',line)
+        print('\t', index, line)
+        index += 1
 print('------------------------------------------------------------\n')
 
 

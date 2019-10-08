@@ -1,15 +1,15 @@
 # from GroupMembers import GetMembersByName
 from GroupMembers import GetMembersByEmail
 
-Members = GetMembersByEmail("BCRInformaticsDatabaseTeamPagers@nationwidechildrens.org")
+Members = GetMembersByEmail("BCR@nationwidechildrens.org")
+
 print('\n------------------------------------------------------------')
-# print(Members)
-# print('------------------------------------------------------------')
 
 if Members == None:
     print('Nothing returned!')
     print('------------------------------------------------------------\n')
     exit()
+
 individuals = []
 groups = []
 

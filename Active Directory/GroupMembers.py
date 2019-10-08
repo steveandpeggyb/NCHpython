@@ -17,7 +17,7 @@ def GetMembersByEmail(groupEmail):      # Input the group email to get the membe
     charLength = len(groupEmail)
     for row in q.get_results():
         if str(row["mail"])[:charLength] == groupEmail:
-            print(row["member"])
+            # print(row["member"])
             output = row["member"]
             return output
 
@@ -37,6 +37,6 @@ def GetMembersByName(groupName):      # Input the group name to get the members
     charLength = len(groupName)
     for row in q.get_results():
         if str(row["cn"])[:charLength] == groupName:
-            print(row["member"])
+            # print(row["member"])
             return row["member"]
 

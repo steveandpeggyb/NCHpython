@@ -5,12 +5,10 @@ import smtplib
 sender = 'steve.blake@nationwidechildrens.org'
 receivers = 'steve.blake@nationwidechildrens.org'
 
-message = """From: Steve Blake <'steve.blake@nationwidechildrens.org'>
-To: Steve Blake <'steve.blake@nationwidechildrens.org'>
-Subject: SMTP e-mail test
-
-This is a test e-mail message.
-"""
+message =           "From: Steve Blake <'" + sender + "'>\n"
+message = message + "To: Steve Blake <'" + sender + "'>\n"
+message = message + "Subject: SMTP e-mail test\n"
+Message = message + "This is a test e-mail message.\n"
 
 try:
     smtpObj = smtplib.SMTP('xmail.nationwidechildrens.org' , 25)

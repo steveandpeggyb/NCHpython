@@ -8,7 +8,7 @@ print(datetime.now(), 'Please wait.  Calculating pi()...')
 pi=CalcPi(10000)
 
 # Save the results of PI()
-writeFile = open('C:\\Users\\csb003\\Desktop\\PythonProjects\\Pi() projects\\PiDigits.txt', 'w+t')
+writeFile = open('C:\\Temp\\PiDigits.txt', 'w+t')
 writer = csv.writer(writeFile)
 writer.writerow([pi])
 writeFile.close()

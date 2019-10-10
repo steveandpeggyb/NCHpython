@@ -5,7 +5,7 @@ import csv
 from datetime import datetime
 
 print(datetime.now(), 'Please wait.  Calculating pi()...')
-pi=CalcPi(10000)
+pi=CalcPi(1000000)
 
 # Save the results of PI()
 writeFile = open('C:\\Temp\\PiDigits.txt', 'w+t')
@@ -29,8 +29,8 @@ print(datetime.now(), 'Please wait.  plotting pi()...')
 dest = 'both'
 
 # plotHeatMap(output, dest)
-# plotDots(output, dest)
-plotDensity(output, dest)
+plotDots(output, dest)
+# plotDensity(output, dest)
 # plotDensity2(output, dest)
 
 print(datetime.now(), 'Done!')

@@ -16,7 +16,7 @@ pi=CalcPi(DesiredDigits)
 # pi.start()
 
 # Save the results of PI()
-writeFile = open('C:\\Users\\csb003\\Desktop\\PythonProjects\\Pi() projects\\PiDigits.txt', 'w+t')
+writeFile = open('C:\\Temp\\PiDigits.txt', 'w+t')
 writer = csv.writer(writeFile)
 writer.writerow([pi])
 writeFile.close()
@@ -37,7 +37,11 @@ writeFile.close()
 # dest = 'both'
 
 # plotHeatMap(output, dest)
+<<<<<<< HEAD
 # plotDots(output, dest)
+=======
+plotDots(output, dest)
+>>>>>>> 29066d11148c794f4d08093207ee2f484bc953dc
 # plotDensity(output, dest)
 # plotDensity2(output, dest)
 

@@ -8,12 +8,10 @@ import multiprocessing
 
 start = time.perf_counter()
 
-DesiredDigits = 1000000
+DesiredDigits = 10000
 
 print('\n{}\tPlease wait... Calculating {:,} digits of Pi()...'.format(datetime.now(), DesiredDigits))
 pi=CalcPi(DesiredDigits)
-# pi=multiprocessing.Process(target=CalcPi)
-# pi.start()
 
 # Save the results of PI()
 writeFile = open('C:\\Temp\\PiDigits.txt', 'w+t')
@@ -37,16 +35,12 @@ writeFile.close()
 # dest = 'both'
 
 # plotHeatMap(output, dest)
-<<<<<<< HEAD
 # plotDots(output, dest)
-=======
-plotDots(output, dest)
->>>>>>> 29066d11148c794f4d08093207ee2f484bc953dc
 # plotDensity(output, dest)
 # plotDensity2(output, dest)
 
 finish = time.perf_counter()
-print(datetime.now(), 'Done!')
+print(datetime.now(), '\tFile is located at: C:\\Temp\\PiDigits.txt')
 
 if finish-start < 60:
     t=str(round(finish-start, 3)) + ' seconds.'

@@ -1,6 +1,6 @@
 from csb_pi import CalcPi
-from csb_navigate import calcVector
-from csb_plot import *
+# from csb_navigate import calcVector
+# from csb_plot import *
 import csv
 from datetime import datetime
 import time
@@ -8,7 +8,7 @@ import multiprocessing
 
 start = time.perf_counter()
 
-DesiredDigits = 10000
+DesiredDigits = 50000000
 
 print('\n{}\tPlease wait... Calculating {:,} digits of Pi()...'.format(datetime.now(), DesiredDigits))
 pi=CalcPi(DesiredDigits)

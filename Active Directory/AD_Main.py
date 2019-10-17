@@ -22,4 +22,35 @@ def GetMembersByName(groupName):
                 cleanup = member.replace(",CN=Users,DC=CRII,DC=ORG", "")
                 cleanup = cleanup.replace("\\","")
                 cleanup = cleanup.replace("CN=","")
-                Return cleanup
+                return cleanup
+
+Groups = ("GDNCHDataBaseAdmins", 
+          "GDSQLDatabaseAdmins", 
+          "GGSQLDatabaseAdmins", 
+          "BCR Informatics Database Admins", 
+          "GDDBAdmins", 
+          "GGDBAdmins", 
+          "RISDBA", 
+          "RISDBAAdmins", 
+          "MSSQLSERVER", 
+          "SQLSERVERAGENT", 
+          "SQLWriter", 
+          "Winmgmt", 
+          "SAP-BCRDB-SQL", 
+          "SAP-BCRDB-SQLAGENT", 
+          "sqlbutler")
+
+for G in Groups:
+    print(G, end='\n\t')
+    members = GetMembersByName(G)
+    if members == None:
+        print("\tNone")
+        # continue()
+    else:
+        for m in members:
+            print('\t',m)
+
+print("Completed")
+
+
+

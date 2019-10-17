@@ -1,5 +1,6 @@
 from pyad.adquery import ADQuery as ADQuery
 from pyad import *
+import time
 
 def GetMembersByName(groupName):
     pyad.set_defaults(ldap_server = 'RPW-DC03.crii.org')
@@ -18,11 +19,23 @@ def GetMembersByName(groupName):
     for row in results:
         if str(row["cn"])[:charLength] == groupName:
             Members = row["member"]
-            for member in Members:
-                cleanup = member.replace(",CN=Users,DC=CRII,DC=ORG", "")
-                cleanup = cleanup.replace("\\","")
-                cleanup = cleanup.replace("CN=","")
-                return cleanup
+            if Members == None:
+                print("None!")
+            else:
+                for member in Members:
+                    cleanup = member.replace(",CN=Users,DC=CRII,DC=ORG", "")
+                    cleanup = cleanup.replace("\\","")
+                    cleanup = cleanup.replace("CN=","")
+                    return cleanup
+
+def FixTime(finish, start):
+    if finish-start < 60:
+        t=str(round(finish-start, 3)) + ' seconds.'
+    else:
+        t=str(round((finish-start)/60, 3)) + ' minutes.'
+    return t
+
+Start = time.perf_counter()
 
 Groups = ("GDNCHDataBaseAdmins", 
           "GDSQLDatabaseAdmins", 
@@ -41,15 +54,15 @@ Groups = ("GDNCHDataBaseAdmins",
           "sqlbutler")
 
 for G in Groups:
-    print(G, end='\n\t')
+    step = time.perf_counter()
     members = GetMembersByName(G)
+    print(G, end='')
+    print('\t', FixTime(time.perf_counter(), step))
     if members == None:
         print("\tNone")
         # continue()
     else:
-        for m in members:
-            print('\t',m)
-
+        print('\t', members)
 print("Completed")
 
 

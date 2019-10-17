@@ -12,8 +12,6 @@ DesiredDigits = 50000000
 
 print('\n{}\tPlease wait... Calculating {:,} digits of Pi()...'.format(datetime.now(), DesiredDigits))
 pi=CalcPi(DesiredDigits)
-# pi=multiprocessing.Process(target=CalcPi)
-# pi.start()
 
 # Save the results of PI()
 writeFile = open('C:\\Temp\\PiDigits.txt', 'w+t')
@@ -42,7 +40,7 @@ writeFile.close()
 # plotDensity2(output, dest)
 
 finish = time.perf_counter()
-print(datetime.now(), 'Done!')
+print(datetime.now(), '\tFile is located at: C:\\Temp\\PiDigits.txt')
 
 if finish-start < 60:
     t=str(round(finish-start, 3)) + ' seconds.'

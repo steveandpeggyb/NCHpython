@@ -8,7 +8,7 @@ import multiprocessing
 
 start = time.perf_counter()
 
-DesiredDigits = 10000000
+DesiredDigits = 1000
 
 print('\n{}\tPlease wait... Calculating {:,} digits of Pi()...'.format(datetime.now(), DesiredDigits))
 pi=CalcPi(DesiredDigits)

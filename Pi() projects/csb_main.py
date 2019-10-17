@@ -1,6 +1,6 @@
 from csb_pi import CalcPi
-from csb_navigate import calcVector
-from csb_plot import *
+# from csb_navigate import calcVector
+# from csb_plot import *
 import csv
 from datetime import datetime
 import time
@@ -8,7 +8,7 @@ import multiprocessing
 
 start = time.perf_counter()
 
-DesiredDigits = 1000000
+DesiredDigits = 50000000
 
 print('\n{}\tPlease wait... Calculating {:,} digits of Pi()...'.format(datetime.now(), DesiredDigits))
 pi=CalcPi(DesiredDigits)
@@ -37,11 +37,7 @@ writeFile.close()
 # dest = 'both'
 
 # plotHeatMap(output, dest)
-<<<<<<< HEAD
 # plotDots(output, dest)
-=======
-plotDots(output, dest)
->>>>>>> 29066d11148c794f4d08093207ee2f484bc953dc
 # plotDensity(output, dest)
 # plotDensity2(output, dest)
 

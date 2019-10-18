@@ -2,7 +2,7 @@ from csb_navigate import calcVector
 import matplotlib.pyplot as plt
 import time
 
-filename = 'C:\\Users\\csb003\\Documents\\NCHpython\\Pi() projects\\01m-PiDigits.txt'
+filename = 'C:\\Users\\csb003\\Documents\\NCHpython\\Pi() projects\\10m-PiDigits.txt'
 file = open(filename, mode='r')
 piTxt = file.read()
 file.close()

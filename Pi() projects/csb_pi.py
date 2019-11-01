@@ -2,7 +2,7 @@ import decimal, time
 from datetime import datetime
 
 def CalcPi(DigitCount=10000):
-    from decimal import *
+    import decimal
     decimal.getcontext().prec = DigitCount + 1   #8751
     D = decimal.Decimal
     with decimal.localcontext() as ctx:

@@ -15,17 +15,11 @@ def GetMembersByName(groupName):
     )
     results = q.get_results()
     charLength = len(groupName)
-    for row in q.get_results():
+    for row in results:
         if str(row["cn"])[:charLength] == groupName:
-            print(row["member"])
-            return row["member"]
-
-Members = GetMembersByName("BCR Informatics Database Team")
-
-print()
-for member in Members:
-    cleanup = member.replace(",CN=Users,DC=CRII,DC=ORG", "")
-    cleanup = cleanup.replace("\\","")
-    cleanup = cleanup.replace("CN=","")
-    print(cleanup)
-print()
+            Members = row["member"]
+            for member in Members:
+                cleanup = member.replace(",CN=Users,DC=CRII,DC=ORG", "")
+                cleanup = cleanup.replace("\\","")
+                cleanup = cleanup.replace("CN=","")
+                Return cleanup

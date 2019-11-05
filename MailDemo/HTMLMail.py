@@ -16,12 +16,12 @@ HTML = """
 </html>
 """
 
-Contacts = ["r3ap3rpy@gmail.com","bountyhunter16@gmail.com"]
+Contacts = ["steve.blake@nationwidechildrens.org","csblake@ymail.com"]
 
 msg = MIMEMultipart('mixed')
 msg['Subject'] = "An HTML mail with attachments"
 msg['To'] = ', '.join(Contacts)
-msg['From'] = 'r3ap3rpy@gmail.com'
+msg['From'] = 'steve.blake@nationwidechildrens.org'
 msg.attach(MIMEText(HTML,'html'))
 
 with open('Test.csv','r') as csv_file:
@@ -39,5 +39,5 @@ msg.attach(att)
 sender = smtplib.SMTP_SSL('smtp.gmail.com','465')
 sender.ehlo()
 sender.login(os.getenv('GUSER'),os.getenv('GPASS'))
-sender.sendmail("r3ap3rpy@gmail.com",Contacts,msg.as_string())
+sender.sendmail("steve.blake@nationwidechildrens.org",Contacts,msg.as_string())
 sender.close()

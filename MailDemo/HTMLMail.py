@@ -24,20 +24,20 @@ msg['To'] = ', '.join(Contacts)
 msg['From'] = 'steve.blake@nationwidechildrens.org'
 msg.attach(MIMEText(HTML,'html'))
 
-with open('Test.csv','r') as csv_file:
+with open('./MailDemo/Test.csv','r') as csv_file:
     att = MIMEApplication(csv_file.read(),_subtype ='csv')
-    att.add_header('Content-Disposition','attachment',filename='Test.csv')
+    att.add_header('Content-Disposition','attachment',filename='./MailDemo/Test.csv')
 
 msg.attach(att)
 
-with open('Doom.png','rb') as png_file:
+with open('./MailDemo/Doom.png','rb') as png_file:
     att = MIMEImage(png_file.read(),_subtype='png')
-    att.add_header('Content-Disposition','attachment',filename='Doom.png')
+    att.add_header('Content-Disposition','attachment',filename='./MailDemo/Doom.png')
 
 msg.attach(att)
 
-sender = smtplib.SMTP_SSL('smtp.gmail.com','465')
+sender = smtplib.SMTP('rmail.crii.com',25)
 sender.ehlo()
-sender.login(os.getenv('GUSER'),os.getenv('GPASS'))
+# sender.login(os.getenv('GUSER'),os.getenv('GPASS'))
 sender.sendmail("steve.blake@nationwidechildrens.org",Contacts,msg.as_string())
 sender.close()

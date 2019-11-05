@@ -7,6 +7,10 @@ import time
 import multiprocessing
 from decimal import *
 
+<<<<<<< HEAD
+print(datetime.now(), 'Please wait.  Calculating pi()...')
+pi=CalcPi(100000)
+=======
 
 start = time.perf_counter()
 
@@ -14,6 +18,7 @@ DesiredDigits = Decimal(70000000/1)
 
 print('\n{}\tPlease wait... Calculating {:,} digits of Pi()...'.format(datetime.now(), DesiredDigits))
 pi=CalcPi(DesiredDigits)
+>>>>>>> b6fc77b908db56cda78bb0110cbd6170c23e1155
 
 # Save the results of PI()
 writeFile = open('C:\\Temp\\PiDigits.txt', 'w+t')
@@ -36,7 +41,11 @@ writeFile.close()
 # # dest = 'plot'
 # dest = 'both'
 
+<<<<<<< HEAD
+plotHeatMap(output, dest)
+=======
 # plotHeatMap(output, dest)
+>>>>>>> b6fc77b908db56cda78bb0110cbd6170c23e1155
 # plotDots(output, dest)
 # plotDensity(output, dest)
 # plotDensity2(output, dest)

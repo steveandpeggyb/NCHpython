@@ -36,7 +36,13 @@ with open('./MailDemo/Doom.png','rb') as png_file:
 
 msg.attach(att)
 
-sender = smtplib.SMTP('rmail.crii.com',25)
+# with open('./MailDemo/HTMLMail.py','rb') as py_file:
+#     att = MIMEApplication(py_file.read(),_subtype='py')
+#     att.add_header('Content-Disposition','attachment',filename='./MailDemo/HTMLMail.py')
+
+# msg.attach(att)
+
+sender = smtplib.SMTP('xmail.crii.com',25)
 sender.ehlo()
 # sender.login(os.getenv('GUSER'),os.getenv('GPASS'))
 sender.sendmail("steve.blake@nationwidechildrens.org",Contacts,msg.as_string())

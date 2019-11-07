@@ -1,5 +1,5 @@
 import csv
-import os
+import subprocess
 
 # read file in
 
@@ -10,5 +10,6 @@ for row in reader:
     if row[0] == 'IPaddress':
         pass
     else:
-        ping_response = os.system("ping -c 1 row[0]")
-        print("Pinging {}({}): {}".format(row[1], row[0], ping_response))
+        (output, error) = subprocess.Popen((['ping', row[0], '-c', '2']), stdin=subprocess.PIPE, stdout=subprocess.PIPE).communicate()
+        print("Output: {}\r\nError: {}".format(output, error))
+print('Process completed..........')      

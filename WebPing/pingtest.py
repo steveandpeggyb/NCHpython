@@ -1,14 +1,15 @@
 import os
+import csv
 
-def check_ping():
-    hostname = "whatiz.com"
-    response = os.system("ping -c 1 " + hostname)
-    # and then check the response...
-    if response == 0:
-        pingstatus = "Network Active"
+f=open('./WebPing/hosts.csv', 'r')
+reader = csv.reader(f)
+
+for row in reader:
+    if row[0] == 'IPaddress':
+        pass
     else:
-        pingstatus = "Network Error"
-
-    return pingstatus
-
-print(check_ping())
+        ping = os.system("Ping " + row[0])
+        if ping ==0:
+            print(row[1]+"(" + row[0]+ ")", " is Up")
+        else:
+            print(row[1]+"(" + row[0]+ ")", " is Down")

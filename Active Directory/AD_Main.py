@@ -53,16 +53,18 @@ Groups = ("GDNCHDataBaseAdmins",
           "SAP-BCRDB-SQLAGENT", 
           "sqlbutler")
 
+fo = open('foo.txt', 'wb')
 for G in Groups:
     step = time.perf_counter()
     members = GetMembersByName(G)
-    print(G, end='')
+    print(G, end='',fo.name)
     print('\t', FixTime(time.perf_counter(), step))
     if members == None:
         print("\tNone")
         # continue()
     else:
         print('\t', members)
+fo.close()
 print("Completed")
 
 

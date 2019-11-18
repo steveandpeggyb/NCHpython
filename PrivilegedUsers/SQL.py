@@ -2,8 +2,8 @@ import pyodbc as sql
 # Create connection
 SERVERNAME = '\\RSW-BCRSQL01'
 DATA_BASE_INFO = 'Qpulse5'
-USERNAME = 'bcrReporting'
-PASSWORD = 'RQ*50XR!'
+USERNAME = 'QPulseAppUser'
+PASSWORD = 'Gr1mjd#12'
 print("setup the connection.")
 
 

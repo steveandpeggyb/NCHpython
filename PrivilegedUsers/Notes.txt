@@ -1,0 +1,21 @@
+Using an ODBC driver
+
+Microsoft have written and distributed multiple ODBC drivers for SQL Server:
+•{SQL Server} - released with SQL Server 2000
+•{SQL Native Client} - released with SQL Server 2005 (also known as version 9.0)
+•{SQL Server Native Client 10.0} - released with SQL Server 2008
+•{SQL Server Native Client 11.0} - released with SQL Server 2012
+•{ODBC Driver 11 for SQL Server} - supports SQL Server 2005 through 2014
+•{ODBC Driver 13 for SQL Server} - supports SQL Server 2005 through 2016
+•{ODBC Driver 13.1 for SQL Server} - supports SQL Server 2008 through 2016
+•{ODBC Driver 17 for SQL Server} - supports SQL Server 2008 through 2017
+
+Note that the "SQL Server Native Client ..." and earlier drivers are deprecated and should not be used for new development.
+
+The connection strings for all these drivers are essentially the same, for example:
+DRIVER={ODBC Driver 17 for SQL Server};SERVER=test;DATABASE=test;UID=user;PWD=password
+
+
+or, in Python:
+
+conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=test;DATABASE=test;UID=user;PWD=password')

@@ -1,11 +1,5 @@
-from .QueryADlibrary import searchAD
-
-def start():
-    username = "BCRInformatics"
-    username = "csb003"
-
-    userObject = searchAD(username)
-
-    for row in userObject:
-        print(row)
-
+from QueryADlibrary import SearchAD
+username = "BCRInformatics"
+SearchResults = SearchAD(username)
+for row in SearchResults:
+    print(row)

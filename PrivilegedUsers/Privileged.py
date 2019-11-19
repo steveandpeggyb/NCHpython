@@ -1,9 +1,11 @@
-from ADqueryUser import QryUser
+from .QueryADlibrary import searchAD
 
-username = "BCRInformatics"
-username = "csb003"
+def start():
+    username = "BCRInformatics"
+    username = "csb003"
 
-userObject = QryUser(username)
+    userObject = searchAD(username)
 
-for row in userObject:
-    print(row)
+    for row in userObject:
+        print(row)
+

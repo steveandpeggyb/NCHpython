@@ -31,3 +31,18 @@ SAM_MACHINE_ACCOUNT	                30000001	 805,306,369
 SAM_TRUST_ACCOUNT	                30000002	 805,306,370 
 SAM_APP_BASIC_GROUP	                40000000   1,073,741,824 
 SAM_APP_QUERY_GROUP	                40000001   1,073,741,825 
+
+
+#   AD Query that will return all data from user or SAM_APP_BASIC_GROUP
+import pyad.adquery as adquery
+import pprint
+
+q = adquery.ADQuery()
+
+q.execute_query(
+    attributes = ["member", "sAMAccountType", "sAMAccountName"],
+    where_clause=("sAMAccountName = 'csb003'"),
+)
+
+for row in q.get_results():
+    pprint.pprint( row )

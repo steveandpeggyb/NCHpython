@@ -13,7 +13,7 @@ def send_email(subject, body, to):
 subj = 'Privileged User Access - ' + str(datetime.today())
 send_to = 'steve.blake@nationwidechildrens.org'
 
-username = "BCRinformatics"
+username = "bpc"
 
 results = SearchAD(username)
 i=1
@@ -38,7 +38,11 @@ print()
 
 body_text = body_text.replace('CN=','')
 body_text = body_text.replace(',DC=CRII,DC=ORG','')
-body_text = body_text.replace(',OU=BCR,OU=CRI DLs,OU=ExchangeMigration','')
+body_text = body_text.replace(',OU=CRI DLs,OU=ExchangeMigration','')
+body_text = body_text.replace(',OU=BCR','')
+body_text = body_text.replace(',OU=BPC','')
+body_text = body_text.replace(',Users','')
 body_text = body_text.replace('\,',',')
 
-send_email(subj, body_text, send_to)
+# send_email(subj, body_text, send_to)
+print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")

@@ -27,12 +27,12 @@ send_to = 'steve.blake@nationwidechildrens.org'
 username = "bpc"
 usernames = ('bcr', 'csb003', 'bpc', 'txb053', 'cra030')
 
+body_text = ''
 for index in range(len(usernames)):
     username = usernames[index]
 
     results = SearchAD(username)
     i=1
-    body_text = ''
     for r in results:
         i += 1
         CN = r['cn']
@@ -59,5 +59,5 @@ for index in range(len(usernames)):
     body_text = body_text.replace(',Users','')
     body_text = body_text.replace('\,',',')
 
-    # send_email(subj, body_text, send_to)
-    print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")
+# send_email(subj, body_text, send_to)
+print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")

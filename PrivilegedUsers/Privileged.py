@@ -21,11 +21,17 @@ def send_email(subject, body, to):
     mime['To'] = to
     s.sendmail('steve.blake@nationwidechildrens.org', to, mime.as_string())
 
+def siphon(usernames):
+    print("seperate the users in one list then extract all group member and add to the first list.")
+    print("Return a tuple of all users.")
+    return usernames
+
 subj = 'Privileged User Access - ' + str(datetime.today())
 send_to = 'steve.blake@nationwidechildrens.org'
 
 username = "bpc"
-usernames = ('bcr', 'csb003', 'bpc', 'txb053', 'cra030')
+list = ('bcr', 'csb003', 'bpc', 'txb053', 'cra030')
+usernames = siphon(list)
 
 body_text = ''
 for index in range(len(usernames)):
@@ -45,11 +51,10 @@ for index in range(len(usernames)):
     body_text = body_text + 'sAMAccountName:\t'+sAMAccountName + '\r\n'
     body_text = body_text + 'Member of Group:\r\n'
     if MEMBER == None:
-        body_text = body_text + '\tGroup has no members.'
+        body_text = body_text + '\tNo group member assigned.\r\n'
     else:
         for index in range(len(MEMBER)):
             body_text = body_text + '\t' + str(index+1) + '\t' + MEMBER[index] + '\r\n'
-    print()
 
     body_text = body_text.replace('CN=','')
     body_text = body_text.replace(',DC=CRII,DC=ORG','')

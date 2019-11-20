@@ -3,10 +3,10 @@ import pprint
 
 def SearchAD(username='csb003'):
 
-    r = adquery.ADQuery()
-    r.execute_query(
+    q = adquery.ADQuery()
+    q.execute_query(
         attributes = ["cn", "member", "sAMAccountType", "sAMAccountName"],
         where_clause=("sAMAccountName = '" + username + "'"),
     )
 
-    return r.get_results()
+    return q.get_results()

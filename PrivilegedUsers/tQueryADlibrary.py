@@ -15,5 +15,5 @@ def SearchAD(username='BCRinformatic'):
     #         print("SAMAccountType: ",r['sAMAccountType'])
     #         print("sAMAccountName: ",r['sAMAccountName'])
     
-    return q.get_results()
+    return q.get_results() 
 

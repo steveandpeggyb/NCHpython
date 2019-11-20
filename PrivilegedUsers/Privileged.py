@@ -1,5 +1,11 @@
 from QueryADlibrary import SearchAD
+import pprint
+
 username = "BCRInformatics"
-SearchResults = SearchAD(username)
-for row in SearchResults:
-    print(row)
+
+results = SearchAD(username)
+
+for x in results:
+    print(x)
+
+pprint.pprint(results)

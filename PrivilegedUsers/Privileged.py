@@ -49,12 +49,13 @@ for index in range(len(usernames)):
     body_text = body_text + '\r\nCN:\t\t\t'+ CN + '\r\n'
     body_text = body_text + 'sAMAccountType:\t'+str(sAMAccountType) + '\r\n'
     body_text = body_text + 'sAMAccountName:\t'+sAMAccountName + '\r\n'
-    body_text = body_text + 'Member of Group:\r\n'
-    if MEMBER == None:
-        body_text = body_text + '\tNo group member assigned.\r\n'
-    else:
-        for index in range(len(MEMBER)):
-            body_text = body_text + '\t' + str(index+1) + '\t' + MEMBER[index] + '\r\n'
+    if sAMAccountType == 268435457: 
+        body_text = body_text + 'Member of Group:\r\n'
+        if MEMBER == None:
+            body_text = body_text + '\tNo group member assigned.\r\n'
+        else:
+            for index in range(len(MEMBER)):
+                body_text = body_text + '\t' + str(index+1) + '\t' + MEMBER[index] + '\r\n'
 
     body_text = body_text.replace('CN=','')
     body_text = body_text.replace(',DC=CRII,DC=ORG','')

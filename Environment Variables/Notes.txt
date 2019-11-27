@@ -1,0 +1,6 @@
+https://www.youtube.com/watch?v=IolxqkL7cD8
+
+Navigate to:
+    [Control Panel] --> [System and Security] --> [System] --> [Advanced system settings] [Environment Variables...]
+    
+

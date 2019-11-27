@@ -1,7 +1,6 @@
 import pyodbc as sql
 import os   
 
-
 # Create connection
 SERVERNAME = 'RDW-BCRSQL01'
 DATA_BASE_INFO = 'Qpulse5'
@@ -25,8 +24,8 @@ try:
 
     print("\r\n")
 
-except Exception:
-    print('Error occured while trying to connect to the database!')
+except Exception as e:
+    print('ERROR: ', e)
 
 # sql.close()
 

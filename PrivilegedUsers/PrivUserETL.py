@@ -17,5 +17,3 @@ def UserData():
 
 for row in UserData():
     print(row)
-
-print()

@@ -2,6 +2,16 @@ from pyad import adquery
 from pyad import aduser
 import csv
 
+def ShowData():
+    print("Group List:")
+    for g in group:
+        print("\t",g)
+    print("User List:")
+    for u in users:
+        print("\t",u)
+    print("Members List:")
+    for m in members:
+        print("\t",m)
 def QryUser(username='csb003'):                 #   Query AD username (sAMAccountName)
     q = adquery.ADQuery()
     q.execute_query(
@@ -41,7 +51,7 @@ group = []                                      #   Known groups
 users = []                                      #   Known Users from a group or singular
 members = []                                    #   Known Members of a group
 
-for username in UserData():                             #   Process CSV rows
+for username in UserData():                     #   Process CSV rows
     results = QryUser(username)
     i=1
     for r in results:                                   #   process all CSV items
@@ -55,7 +65,7 @@ for username in UserData():                             #   Process CSV rows
         sAMAccountName = r['sAMAccountName']
         if sAMAccountType == 268435456:                 #   Process group
             if sAMAccountName not in group:             #   Log real groups
-                group.append(sAMAccountName)
+                group.append(r['sAMAccountName'])
                 if MEMBER == None:                      #   This group has no members
                     print('# No member in this group!')
                 else:                                   #   Process group members
@@ -70,9 +80,9 @@ for username in UserData():                             #   Process CSV rows
         else:                                           #   Process Users
             if NAME not in users:                       #   Log real users
                 users.append(NAME)
+    del group[:]                                    #   Restart the 'Group' list
 
-groups = []                                             #   Restart the 'Group' list
-for m in members:                                       #   process groups in groups
+for m in members:                               #   process group members
     results = QryName(m)
     for r in results:                                   #   process AD returned information
         if r['sAMAccountType'] == 268435456:            #   Log real groups
@@ -80,18 +90,11 @@ for m in members:                                       #   process groups in gr
                 group.append(r['sAMAccountName'])
         else:                                           #   Process Users
             if r['sAMAccountName'] not in users:
-                users.append(r['sAMAccountName'])
+                users.append(r['displayName'])
 
-print("Group List:")
-for g in group:
-    print("\t",g)
-print("User List:")
-for u in users:
-    print("\t",u)
-print("Members List:")
-for m in members:
-    print("\t",m)
+ShowData()
 
 print()
+
 # send_email(subj, body_text, send_to)
 # print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")

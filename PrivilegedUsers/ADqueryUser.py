@@ -1,6 +1,5 @@
-import pyad.adquery, pyad.aduser
-
 def QryUser(username='csb003'):
+    import pyad.adquery, pyad.aduser
     q = pyad.adquery.ADQuery()
     q.execute_query(
                     # attributes = ["givenName", "sn", "mail", "title", "sAMAccountType", "memberOf"][::-1],
@@ -14,11 +13,12 @@ def QryUser(username='csb003'):
     allResults=q.get_results()
 
     # print(allResults)
-
+    key = 'cn'
     for row in q.get_results():
         userObject[key] = row[key]
-        print(key, '\t', userObject[key])
+        # print(key, '\t', userObject[key])
     
     return userObject
 
-QryUser('csb003')
+results = QryUser('csb003')
+print(results['cn'])

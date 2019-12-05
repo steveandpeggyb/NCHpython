@@ -1,15 +1,48 @@
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from pyad import adquery
 from pyad import aduser
-from email.mime.text import MIMEText
 import smtplib
 import csv
 
-def send_email(subject, body, to):
+def SendHTMLemail(subject, body, send_to):
+    # me == my email address
+    # you == recipient's email address
+    fromEmail = "steve.blake@nationwidechildrens.org"
+
+    # Create message container - the correct MIME type is multipart/alternative.
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = subject
+    msg['From'] = fromEmail
+    msg['To'] = send_to
+
+    # Create the body of the message (a plain-text and an HTML version).
+    text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttp://www.python.org"
+    html = """\
+    <html>
+    <head></head>
+    <body>"""
+    html = html + body
+    html = html + """</body>
+    </html>
+    """
+
+    # Record the MIME types of both parts - text/plain and text/html.
+    part1 = MIMEText(text, 'plain')
+    part2 = MIMEText(html, 'html')
+
+    # Attach parts into message container.
+    # According to RFC 2046, the last part of a multipart message, in this case
+    # the HTML message, is best and preferred.
+    msg.attach(part1)
+    msg.attach(part2)
+
+    # Send the message via local SMTP server.
     s = smtplib.SMTP('xmail.nationwidechildrens.org')
-    mime = MIMEText(body)
-    mime['Subject'] = subject
-    mime['To'] = to
-    s.sendmail('steve.blake@nationwidechildrens.org', to, mime.as_string())
+    # sendmail function takes 3 arguments: sender's address, recipient's address
+    # and message to send - here it is sent as one string.
+    s.sendmail(fromEmail, send_to, msg.as_string())
+    s.quit()
 def ShowData():
     print("User List:")
     users.sort()
@@ -20,16 +53,24 @@ def ShowData():
     for i in IDgroups:
         print("\t",i)
 def EmailData():
-    body_text = 'The following users have privileged user access to the BCR Data warehouse.\r\n'
-    body_text = body_text +  "Privileged users are defined as, any individual or group that have 'Update', 'Delete', 'Insert' access to the data warehouse.\r\n"
-    body_text = body_text + 'These user may have direct access or access through an Active Directory "Group".\r\n\r\n'
+    body_text = '<strong>The following users have privileged user access to the BCR Data warehouse.<p>'
+    body_text = body_text +  "Privileged users are defined as, any individual or group that have 'Update', 'Delete', 'Insert' access to the data warehouse.<p>"
+    body_text = body_text + 'These user may have direct access or access through an Active Directory "Group".</strong><p><p>'
+    
+    body_text = body_text + '<ul style="list-style-type:circle"><font color=#560494>'
     for u in users:
-        body_text = body_text + '\t' + u + '\r\n'
-    body_text = body_text + '\r\nThe above users are potentially included in one or more of the following groups AND/OR have individual accesses:\r\n\r\n'
+        body_text = body_text + '<li>' + u + '</li><p>'
+    body_text = body_text + '</ul></font>'
+    
+    body_text = body_text + '<p><strong>The above users are potentially included in one or more of the following groups AND/OR have individual accesses:</strong><p><p>'
+
+    body_text = body_text + '<ul style="list-style-type:circle"><font color=#560494>'
     for i in IDgroups:
-        body_text = body_text + '\t' + i + '\r\n'   
+        body_text = body_text + '<li>' + i + '</li><p>'   
+    body_text = body_text + '</ul></font>'
+    
     subj = 'Privileged User Audit'
-    send_email(subj, body_text, send_to)
+    SendHTMLemail(subj, body_text, send_to)
 def QryUser(username='csb003'):                 #   Query AD username (sAMAccountName)
     q = adquery.ADQuery()
     q.execute_query(

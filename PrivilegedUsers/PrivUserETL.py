@@ -65,7 +65,6 @@ def UserData():                                 #   Load the data within the CSV
         return data
 
 #   Process the collect usernames
-# body_text = ''
 group = []                                      #   Known groups
 users = []                                      #   Known Users from a group or singular
 members = []

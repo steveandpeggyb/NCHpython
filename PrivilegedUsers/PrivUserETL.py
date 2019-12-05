@@ -52,7 +52,7 @@ def ShowData():
     users.sort()
     for i in IDgroups:
         print("\t",i)
-def EmailData():
+def EmailData():                                #   Construct the email content from provided details.
     body_text = '<strong>The following users have privileged user access to the BCR Data warehouse.<p>'
     body_text = body_text +  "Privileged users are defined as, any individual or group that have 'Update', 'Delete', 'Insert' access to the data warehouse.<p>"
     body_text = body_text + 'These user may have direct access or access through an Active Directory "Group".</strong><p><p>'

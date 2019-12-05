@@ -21,7 +21,7 @@ def ShowData():
         print("\t",i)
 def EmailData():
     body_text = 'The following users have privileged user access to the BCR Data warehouse.\r\n'
-    body_text = body_text +  'Privileged users are defined as, "Any individual or group that have Delete, Modify, Add access to the data warehouse.\r\n'
+    body_text = body_text +  "Privileged users are defined as, any individual or group that have 'Update', 'Delete', 'Insert' access to the data warehouse.\r\n"
     body_text = body_text + 'These user may have direct access or access through an Active Directory "Group".\r\n\r\n'
     for u in users:
         body_text = body_text + '\t' + u + '\r\n'
@@ -29,7 +29,6 @@ def EmailData():
     for i in IDgroups:
         body_text = body_text + '\t' + i + '\r\n'   
     subj = 'Privileged User Audit'
-    send_to = 'steve.blake@nationwidechildrens.org'
     send_email(subj, body_text, send_to)
 def QryUser(username='csb003'):                 #   Query AD username (sAMAccountName)
     q = adquery.ADQuery()
@@ -65,10 +64,12 @@ def UserData():                                 #   Load the data within the CSV
         return data
 
 #   Process the collect usernames
-group = []                                      #   Known groups
+group = []                                      #   groups to process
 users = []                                      #   Known Users from a group or singular
-members = []
-IDgroups = []
+members = []                                    #   Members of a group being processed
+IDgroups = []                                   #   All distinct groups processed
+# send_to = 'steve.blake@nationwidechildrens.org, jeff.wolfe@nationwidechildrens.org'
+send_to = 'steve.blake@nationwidechildrens.org'
 
 list = UserData()
 InitialPass = True
@@ -89,7 +90,7 @@ while len(list)>0:
             sAMAccountName = r['sAMAccountName']
             if sAMAccountType == 268435456:                 #   Process group
                 if sAMAccountName not in IDgroups:          #   Keep track of all groups processed
-                    IDgroups.append(r['sAMAccountName'])
+                    IDgroups.append(r['sAMAccountName'] + '\t(' + str(len(r['member'])) + ') members.')
                 if sAMAccountName not in group:             #   Log real groups
                     group.append(r['sAMAccountName'])
                     if MEMBER == None:                      #   This group has no members

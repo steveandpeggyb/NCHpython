@@ -61,7 +61,8 @@ def UserData():                                 #   Load the data within the CSV
 group = []                                      #   Known groups
 users = []                                      #   Known Users from a group or singular
 members = []
-global list   
+IDgroups = []
+
 list = UserData()
 InitialPass = True
 
@@ -106,5 +107,3 @@ while len(list)>0:
 ShowData()
 EmailData()
 
-# send_email(subj, body_text, send_to)
-# print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")

@@ -11,15 +11,21 @@ def send_email(subject, body, to):
     mime['To'] = to
     s.sendmail('steve.blake@nationwidechildrens.org', to, mime.as_string())
 def ShowData():
-
     print("User List:")
     users.sort()
     for u in users:
         print("\t",u)
+    print("\r\nGroups processed:")
+    users.sort()
+    for i in IDgroups:
+        print("\t",i)
 def EmailData():
     body_text = 'The following users have privileged user access to the BCR Data warehouse.  These user may have direct access or access through an Active Directory "Group".\r\n\r\n'
     for u in users:
         body_text = body_text + '\t' + u + '\r\n'
+    body_text = body_text + '\r\nThe above users could be included in one or more of the following groups OR could have individual accesses:\r\n\r\n'
+    for i in IDgroups:
+        body_text = body_text + '\t' + i + '\r\n'   
     subj = 'Privileged User Audit'
     send_to = 'steve.blake@nationwidechildrens.org'
     send_email(subj, body_text, send_to)
@@ -67,7 +73,7 @@ list = UserData()
 InitialPass = True
 
 while len(list)>0:
-    for username in list:                       #   Process CSV rows
+    for username in list:                       #   Process user/groups
         if InitialPass == True:                 #   Initial pass (True) will look at AD attribute "sAMAccountName"
             results = QryUser(username)
         else:                                   #   Initial pass (False) looks at AD attribute "name"
@@ -81,6 +87,8 @@ while len(list)>0:
             sAMAccountType = r['sAMAccountType']
             sAMAccountName = r['sAMAccountName']
             if sAMAccountType == 268435456:                 #   Process group
+                if sAMAccountName not in IDgroups:          #   Keep track of all groups processed
+                    IDgroups.append(r['sAMAccountName'])
                 if sAMAccountName not in group:             #   Log real groups
                     group.append(r['sAMAccountName'])
                     if MEMBER == None:                      #   This group has no members

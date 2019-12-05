@@ -1,17 +1,28 @@
 from pyad import adquery
 from pyad import aduser
+from email.mime.text import MIMEText
+import smtplib
 import csv
 
+def send_email(subject, body, to):
+    s = smtplib.SMTP('xmail.nationwidechildrens.org')
+    mime = MIMEText(body)
+    mime['Subject'] = subject
+    mime['To'] = to
+    s.sendmail('steve.blake@nationwidechildrens.org', to, mime.as_string())
 def ShowData():
-    print("Group List:")
-    for g in group:
-        print("\t",g)
+
     print("User List:")
+    users.sort()
     for u in users:
         print("\t",u)
-    print("Members List:")
-    for m in members:
-        print("\t",m)
+def EmailData():
+    body_text = 'The following users have privileged user access to the BCR Data warehouse.  These user may have direct access or access through an Active Directory "Group".\r\n\r\n'
+    for u in users:
+        body_text = body_text + '\t' + u + '\r\n'
+    subj = 'Privileged User Audit'
+    send_to = 'steve.blake@nationwidechildrens.org'
+    send_email(subj, body_text, send_to)
 def QryUser(username='csb003'):                 #   Query AD username (sAMAccountName)
     q = adquery.ADQuery()
     q.execute_query(
@@ -46,55 +57,54 @@ def UserData():                                 #   Load the data within the CSV
         return data
 
 #   Process the collect usernames
-body_text = ''
+# body_text = ''
 group = []                                      #   Known groups
 users = []                                      #   Known Users from a group or singular
-members = []                                    #   Known Members of a group
+members = []
+global list   
+list = UserData()
+InitialPass = True
 
-for username in UserData():                     #   Process CSV rows
-    results = QryUser(username)
-    i=1
-    for r in results:                                   #   process all CSV items
-        i += 1
-        if r['displayName'] == None:
-            NAME = r['name']
-        else:
-            NAME = r['displayName']
-        MEMBER = r['member']
-        sAMAccountType = r['sAMAccountType']
-        sAMAccountName = r['sAMAccountName']
-        if sAMAccountType == 268435456:                 #   Process group
-            if sAMAccountName not in group:             #   Log real groups
-                group.append(r['sAMAccountName'])
-                if MEMBER == None:                      #   This group has no members
-                    print('# No member in this group!')
-                else:                                   #   Process group members
-                    for index in range(len(MEMBER)):
-                        sandbox = MEMBER[index]
-                        sandbox = sandbox.replace('CN=','')
-                        sandbox = sandbox.split(',OU')[0]
-                        sandbox = sandbox.split(',Users')[0]
-                        sandbox = sandbox.replace('\\','')
-                        if sandbox not in members:
-                            members.append(sandbox)
-        else:                                           #   Process Users
-            if NAME not in users:                       #   Log real users
-                users.append(NAME)
-    del group[:]                                    #   Restart the 'Group' list
-
-for m in members:                               #   process group members
-    results = QryName(m)
-    for r in results:                                   #   process AD returned information
-        if r['sAMAccountType'] == 268435456:            #   Log real groups
-            if r['sAMAccountName'] not in group:
-                group.append(r['sAMAccountName'])
-        else:                                           #   Process Users
-            if r['sAMAccountName'] not in users:
-                users.append(r['displayName'])
+while len(list)>0:
+    for username in list:                       #   Process CSV rows
+        if InitialPass == True:                 #   Initial pass (True) will look at AD attribute "sAMAccountName"
+            results = QryUser(username)
+        else:                                   #   Initial pass (False) looks at AD attribute "name"
+            results = QryName(username)
+        for r in results:                                   #   process all CSV items
+            if r['displayName'] == None:
+                NAME = r['name']
+            else:
+                NAME = r['displayName']
+            MEMBER = r['member']
+            sAMAccountType = r['sAMAccountType']
+            sAMAccountName = r['sAMAccountName']
+            if sAMAccountType == 268435456:                 #   Process group
+                if sAMAccountName not in group:             #   Log real groups
+                    group.append(r['sAMAccountName'])
+                    if MEMBER == None:                      #   This group has no members
+                        print('# No member in this group!')
+                    else:                                   #   Process group members
+                        for index in range(len(MEMBER)):
+                            sandbox = MEMBER[index]
+                            sandbox = sandbox.replace('CN=','')
+                            sandbox = sandbox.split(',OU')[0]
+                            sandbox = sandbox.split(',Users')[0]
+                            sandbox = sandbox.replace('\\','')
+                            if sandbox not in members:
+                                members.append(sandbox)
+            else:                                           #   Process Users
+                if NAME not in users:                       #   Log real users
+                    users.append(NAME)
+    del list[:]
+    for m in members:
+        list.append(m)
+    del members[:]
+    del group[:]
+    InitialPass = False
 
 ShowData()
-
-print()
+EmailData()
 
 # send_email(subj, body_text, send_to)
 # print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")

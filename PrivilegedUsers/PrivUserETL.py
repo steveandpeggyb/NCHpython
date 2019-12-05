@@ -20,10 +20,12 @@ def ShowData():
     for i in IDgroups:
         print("\t",i)
 def EmailData():
-    body_text = 'The following users have privileged user access to the BCR Data warehouse.  These user may have direct access or access through an Active Directory "Group".\r\n\r\n'
+    body_text = 'The following users have privileged user access to the BCR Data warehouse.\r\n'
+    body_text = body_text +  'Privileged users are defined as, "Any individual or group that have Delete, Modify, Add access to the data warehouse.\r\n'
+    body_text = body_text + 'These user may have direct access or access through an Active Directory "Group".\r\n\r\n'
     for u in users:
         body_text = body_text + '\t' + u + '\r\n'
-    body_text = body_text + '\r\nThe above users could be included in one or more of the following groups OR could have individual accesses:\r\n\r\n'
+    body_text = body_text + '\r\nThe above users are potentially included in one or more of the following groups AND/OR have individual accesses:\r\n\r\n'
     for i in IDgroups:
         body_text = body_text + '\t' + i + '\r\n'   
     subj = 'Privileged User Audit'

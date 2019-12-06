@@ -5,6 +5,7 @@ import win32serviceutil
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime
 
 def SendHTMLemail(toEmail, fromEmail, subject, body):
 
@@ -49,19 +50,44 @@ def getService(name):
         except Exception as ex:
             print(str(ex))
         return service
+def service_info(action, machine, target):
+    if action == 'stop': 
+        win32serviceutil.StopService(target, machine)
+        print('%s stopped successfully' % service)
+    elif action == 'start': 
+        win32serviceutil.StartService(target, machine)
+        print('%s started successfully' % service)
+    elif action == 'restart': 
+        win32serviceutil.RestartService(target, machine)
+        print('%s restarted successfully' % service)
+    elif action == 'status':
+        if win32serviceutil.QueryServiceStatus(target, machine)[1] == 4:
+            print("%s is running normally" % target )
+        else:
+            print("%s is *not* running" % target)
 
 STOPPED = 1
+now=datetime.now()
+ActionTimestamp = now.strftime("%Y%m%d-%H%M%S")
+
 target = 'ReportServer$DEVSERVER'
+machine = 'resd9-gzmmmr2'
+action = 'start'
 
 # In Windows Services, double-click the service. In the dialog box, use the "Service name:"
 service = getService(target)
-print('\r\nThe "' + target + '" service is ' +  service['status'] + '.')
+
+# Open log file to record all activity
+f = open("C:\\NightlyJobs\\MonitorService.log", "a+")
+f.write(now.strftime("%Y%m%d-%H%M%S") + '\tThe "' + target + '" service is ' +  service['status'] + '.\r')
 
 if service['status'] == 'stopped':
     SendTo = SendFrom = 'steve.blake@nationwidechildrens.org'
     subject = 'WINDOWS SERVICE: ' + service['display_name'] + ' seems to be OFF!'
     body = '<p>WINDOWS SERVICE: <strong><font color=blue>' + service['display_name'] + '</font></strong> seems to be OFF!<p>'
-    body = body + '<p> On the server, open "windows services" and restart the service.'
-    SendHTMLemail(SendTo, SendFrom, subject, body)
-    print('Email has been sent to document this ')
+    body = body + '<p> On the server, open <i>"windows services"</i> and restart the service.'
+    # SendHTMLemail(SendTo, SendFrom, subject, body)
+    f.write(now.strftime("%Y%m%d-%H%M%S") + '\tAn Email has been sent to document service failure.\r')
+    # service_info('restart', machine, target)
 
+f.close()

@@ -1,4 +1,5 @@
 import sys
+import time
 import psutil
 import win32service
 import win32serviceutil
@@ -85,9 +86,18 @@ if service['status'] == 'stopped':
     SendTo = SendFrom = 'steve.blake@nationwidechildrens.org'
     subject = 'WINDOWS SERVICE: ' + service['display_name'] + ' seems to be OFF!'
     body = '<p>WINDOWS SERVICE: <strong><font color=blue>' + service['display_name'] + '</font></strong> seems to be OFF!<p>'
-    body = body + '<p> On the server, open <i>"windows services"</i> and restart the service.'
-    # SendHTMLemail(SendTo, SendFrom, subject, body)
-    f.write(now.strftime("%Y%m%d-%H%M%S") + '\tAn Email has been sent to document service failure.\r')
-    # service_info('restart', machine, target)
+    f.write(now.strftime("%Y%m%d-%H%M%S") + '\tAn Email has been sent to document service failure. Attempting a restart process.\r')
+    body = body + '<p>Attempting to restart the service.'
+    service_info('restart', machine, target)
+    service = getService(target)
+    time.sleep(5) # delays for 5 seconds
+    if service['status'] == 'stopped':
+        body = body + '<p>Attempt to restart the service failed.'
+        body = body + '<p>On the server, open <i>"windows services"</i> and restart the service.'
+        f.write(now.strftime("%Y%m%d-%H%M%S") + '\tFailed to restart service')
+    else:
+        body = body + '<p>Attempt to restart the service was successful. No further action is required.'
+        f.write(now.strftime("%Y%m%d-%H%M%S") + '\tService was restarted.')
+    SendHTMLemail(SendTo, SendFrom, subject, body)
 
 f.close()

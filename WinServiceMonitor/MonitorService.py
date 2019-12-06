@@ -1,5 +1,11 @@
+import sys
 import psutil
+import win32service
+import win32serviceutil
 
+STOPPED = 1
+
+target = 'ReportServer$DEVSERVER'
 def getService(name): 
         service = None
         try:
@@ -8,17 +14,13 @@ def getService(name):
         except Exception as ex:
             print(str(ex))
         return service
- 
-service = getService('ReportServer$DEVSERVER')
- 
-print(service)
- 
-if service:
-        print("service found")
-else:
-    print("service not found")
- 
-if service and service['status'] == 'running' :
-        print("service is running")
-else :
-        print("service is not running")
+
+# In Windows Services, double-click the service. In the dialog box, use the "Service name:"
+service = getService(target)
+
+print('\r\nThe "' + target + '" service is ' +  service['status'] + '.')
+
+# if service['status'] == 'stopped':
+#     win32serviceutil.RestartService(target)
+# service = getService(target)
+# print('\r\nAfter trying to restart, the "' + target + '" service is ' +  service['status'] + '.')

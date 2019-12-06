@@ -1,7 +1,5 @@
 from sys import argv
-
 import numpy as np
-
 from io_helper import read_tsp, normalize
 from neuron import generate_network, get_neighborhood, get_route
 from distance import select_closest, euclidean_distance, route_distance

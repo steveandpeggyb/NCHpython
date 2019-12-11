@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import pandas
 
-f = open("C:\\Users\\csb003\\Documents\\NCHpython\\Pi() projects\\10m-PiDigits.txt", "r")
+f = open("C:\\Users\\csb003\\Documents\\NCHpython\\Pi() projects\\10k-PiDigits.txt", "r")
 piData = f.read()
 f.close()
 
@@ -13,7 +13,7 @@ yDict = {'0': 3, '1': 2.427051, '2': 0.927051, '3': -0.927051, '4': -2.427051, '
 x, y = [0],[0]
 NewX = 0
 NewY = 0
-
+pip
 for digit in piData:
     if digit not in ('.', '\n'):
         NewX = xDict[digit]+NewX

@@ -38,42 +38,42 @@ for r in topList:
 
 send_email(subj, 'body_text', send_to)
 
-# list = ('bcr', 'csb003', 'bpc', 'txb053', 'cra030')
-# usernames = siphon(list)
+list = ('bcr', 'csb003', 'bpc', 'txb053', 'cra030')
+usernames = siphon(list)
 
-# body_text = ''
-# for index in range(len(usernames)):
-#     username = usernames[index]
+body_text = ''
+for index in range(len(usernames)):
+    username = usernames[index]
 
-#     results = SearchAD(username)
-#     i=1
-#     for r in results:
-#         i += 1
-#         CN = r['cn']
-#         MEMBER = r['member']
-#         sAMAccountType = r['sAMAccountType']
-#         sAMAccountName = r['sAMAccountName']
+    results = SearchAD(username)
+    i=1
+    for r in results:
+        i += 1
+        CN = r['cn']
+        MEMBER = r['member']
+        sAMAccountType = r['sAMAccountType']
+        sAMAccountName = r['sAMAccountName']
 
 
 
-#     body_text = body_text + '\r\nCN:\t\t\t'+ CN + '\r\n'
-#     body_text = body_text + 'sAMAccountType:\t'+str(sAMAccountType) + '\r\n'
-#     body_text = body_text + 'sAMAccountName:\t'+sAMAccountName + '\r\n'
-#     if sAMAccountType == 268435457: 
-#         body_text = body_text + 'Member of Group:\r\n'
-#         if MEMBER == None:
-#             body_text = body_text + '\tNo group member assigned.\r\n'
-#         else:
-#             for index in range(len(MEMBER)):
-#                 body_text = body_text + '\t' + str(index+1) + '\t' + MEMBER[index] + '\r\n'
+    body_text = body_text + '\r\nCN:\t\t\t'+ CN + '\r\n'
+    body_text = body_text + 'sAMAccountType:\t'+str(sAMAccountType) + '\r\n'
+    body_text = body_text + 'sAMAccountName:\t'+sAMAccountName + '\r\n'
+    if sAMAccountType == 268435457: 
+        body_text = body_text + 'Member of Group:\r\n'
+        if MEMBER == None:
+            body_text = body_text + '\tNo group member assigned.\r\n'
+        else:
+            for index in range(len(MEMBER)):
+                body_text = body_text + '\t' + str(index+1) + '\t' + MEMBER[index] + '\r\n'
 
-#     body_text = body_text.replace('CN=','')
-#     body_text = body_text.replace(',DC=CRII,DC=ORG','')
-#     body_text = body_text.replace(',OU=CRI DLs,OU=ExchangeMigration','')
-#     body_text = body_text.replace(',OU=BCR','')
-#     body_text = body_text.replace(',OU=BPC','')
-#     body_text = body_text.replace(',Users','')
-#     body_text = body_text.replace('\,',',')
+    body_text = body_text.replace('CN=','')
+    body_text = body_text.replace(',DC=CRII,DC=ORG','')
+    body_text = body_text.replace(',OU=CRI DLs,OU=ExchangeMigration','')
+    body_text = body_text.replace(',OU=BCR','')
+    body_text = body_text.replace(',OU=BPC','')
+    body_text = body_text.replace(',Users','')
+    body_text = body_text.replace('\,',',')
 
-# # send_email(subj, body_text, send_to)
-# print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")
+# send_email(subj, body_text, send_to)
+print("\r\n" + body_text.replace('\t\t\t','\t\t') + "\r\n")

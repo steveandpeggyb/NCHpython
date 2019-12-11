@@ -90,7 +90,7 @@ if service['status'] == 'stopped':
     body = body + '<p>Attempting to restart the service.'
     service_info('restart', machine, target)
     service = getService(target)
-    time.sleep(10) # delays for 5 seconds
+    time.sleep(10) # delays for 10 seconds
     if service['status'] == 'stopped':
         body = body + '<p>Attempt to restart the service failed.'
         body = body + '<p>On the server, open <i>"windows services"</i> and restart the service.'

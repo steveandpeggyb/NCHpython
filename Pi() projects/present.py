@@ -13,7 +13,7 @@ yDict = {'0': 3, '1': 2.427051, '2': 0.927051, '3': -0.927051, '4': -2.427051, '
 x, y = [0],[0]
 NewX = 0
 NewY = 0
-pip
+
 for digit in piData:
     if digit not in ('.', '\n'):
         NewX = xDict[digit]+NewX

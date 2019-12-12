@@ -1,6 +1,10 @@
 https://www.youtube.com/watch?v=IolxqkL7cD8
 
 Navigate to:
-    [Control Panel] --> [System and Security] --> [System] --> [Advanced system settings] [Environment Variables...]
-    
+    [Control Panel] --> [System and Security] --> [System] --> [Advanced system settings] --> [Environment Variables...] --> [System variables] (bottome)
+    --> for example variable = username and Value = csb003
 
+How to use:
+    import os
+
+    db_user = os.environ.get('username')

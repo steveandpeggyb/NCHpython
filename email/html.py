@@ -46,7 +46,7 @@ def SendHTMLemail(toEmail, fromEmail, subject, body):
     s.sendmail(fromEmail, toEmail, msg.as_string())
     s.quit()
 
-SendHTMLemail(  toEmail=    'steve.blake@nationwidechildrens.org', 
+SendHTMLemail(  toEmail=    '16144778613@vtext.com', 
                 fromEmail=  'steve.blake@nationwidechildrens.org', 
                 subject=    'Test email', 
                 body=       '<strong><font color=blue>Welcome</font></strong> to this world.'

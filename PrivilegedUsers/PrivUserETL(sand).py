@@ -5,7 +5,36 @@ from pyad import aduser
 import smtplib
 import csv
 
-def SendHTMLemail(subject, body, send_to):
+
+def ShowData():                                 #   Show the data on the terminal
+    print("User List:")
+    users.sort()
+    for u in users:
+        print("\t",u)
+    print("\r\nGroups processed:")
+    users.sort()
+    for i in IDgroups:
+        print("\t",i)
+def EmailData():                                #   Construct the email content from provided details.
+    body_text = '<strong>The following users have privileged user access to the BCR <span style="background-color: #FFFF00"><font color=#8B0E80>RPW-BCRSQL02</font></span> (Production).<p>'
+    body_text = body_text +  "Privileged users are defined as, any individual or group that have 'Update', 'Delete', 'Insert' access to the data warehouse.<p>"
+    body_text = body_text + 'These user may have direct access or access through an Active Directory "Group".</strong><p><p>'
+    
+    body_text = body_text + '<ul style="list-style-type:circle"><font color=#560494>'
+    for u in users:
+        body_text = body_text + '<li>' + u + '</li><p>'
+    body_text = body_text + '</ul></font>'
+    
+    body_text = body_text + '<p><strong>The above users are potentially included in one or more of the following groups AND/OR have individual accesses:</strong><p><p>'
+
+    body_text = body_text + '<ul style="list-style-type:circle"><font color=#560494>'
+    for i in IDgroups:
+        body_text = body_text + '<li>' + i + '</li><p>'   
+    body_text = body_text + '</ul></font>'
+    
+    subj = 'Privileged User Audit'
+    SendHTMLemail(subj, body_text, send_to)
+def SendHTMLemail(subject, body, send_to):      #   Send out the email
     # me == my email address
     # you == recipient's email address
     fromEmail = "steve.blake@nationwidechildrens.org"
@@ -43,34 +72,6 @@ def SendHTMLemail(subject, body, send_to):
     # and message to send - here it is sent as one string.
     s.sendmail(fromEmail, send_to, msg.as_string())
     s.quit()
-def ShowData():
-    print("User List:")
-    users.sort()
-    for u in users:
-        print("\t",u)
-    print("\r\nGroups processed:")
-    users.sort()
-    for i in IDgroups:
-        print("\t",i)
-def EmailData():                                #   Construct the email content from provided details.
-    body_text = '<strong>The following users have privileged user access to the BCR <span style="background-color: #FFFF00"><font color=#8B0E80>RPW-BCRSQL02</font></span> (Production).<p>'
-    body_text = body_text +  "Privileged users are defined as, any individual or group that have 'Update', 'Delete', 'Insert' access to the data warehouse.<p>"
-    body_text = body_text + 'These user may have direct access or access through an Active Directory "Group".</strong><p><p>'
-    
-    body_text = body_text + '<ul style="list-style-type:circle"><font color=#560494>'
-    for u in users:
-        body_text = body_text + '<li>' + u + '</li><p>'
-    body_text = body_text + '</ul></font>'
-    
-    body_text = body_text + '<p><strong>The above users are potentially included in one or more of the following groups AND/OR have individual accesses:</strong><p><p>'
-
-    body_text = body_text + '<ul style="list-style-type:circle"><font color=#560494>'
-    for i in IDgroups:
-        body_text = body_text + '<li>' + i + '</li><p>'   
-    body_text = body_text + '</ul></font>'
-    
-    subj = 'Privileged User Audit'
-    SendHTMLemail(subj, body_text, send_to)
 def QryUser(username='csb003'):                 #   Query AD username (sAMAccountName)
     q = adquery.ADQuery()
     q.execute_query(
@@ -98,6 +99,7 @@ def QryGroup(name='BCRinformatics'):            #   Query AD by group (name)
     allRestuls = ()
     allResults = q.get_results
     return allResults()
+
 def UserData():                                 #   Load the data within the CSV file.
     with open ("R:/RESBCR/FISMA/PrivilegedUserAudits/PrivilegedUserAudit.csv") as f:
         reader = csv.reader(f)
@@ -118,19 +120,19 @@ group = []                                      #   groups to process
 users = []                                      #   Known Users from a group or singular
 members = []                                    #   Members of a group being processed
 IDgroups = []                                   #   All distinct groups processed
-# send_to = 'steve.blake@nationwidechildrens.org, jeff.wolfe@nationwidechildrens.org'
+HospitalList = []                               #   Raw Hospital users and groups
+list = UserData()                               #   raw list to be processed
+InitialPass = True                              #   First time through, processing
+
 send_to = 'steve.blake@nationwidechildrens.org'
 
-list = UserData()
-InitialPass = True
-
-while len(list)>0:
+while len(list)>0:                              #   Process the users and Groups loaded from the CSV file.
     for username in list:                       #   Process user/groups
         if InitialPass == True:                 #   Initial pass (True) will look at AD attribute "sAMAccountName"
             results = QryUser(username)
         else:                                   #   Initial pass (False) looks at AD attribute "name"
             results = QryName(username)
-        for r in results:                                   #   process all CSV items
+        for r in results:                       #   process all CSV items
             if r['displayName'] == None:
                 NAME = r['name']
             else:

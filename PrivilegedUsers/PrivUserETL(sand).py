@@ -89,7 +89,7 @@ def QryName(name='Bateman, Thomas (Admin ID)'): #   Query AD by name (name)
     allRestuls = ()
     allResults = q.get_results
     return allResults()
-def QryGroup(name='BCRinformatics'): #   Query AD by name (name)
+def QryGroup(name='BCRinformatics'):            #   Query AD by group (name)
     q = adquery.ADQuery()
     q.execute_query(
         attributes = ["cn", "member", "sAMAccountType", "sAMAccountName", "displayName", "name"],

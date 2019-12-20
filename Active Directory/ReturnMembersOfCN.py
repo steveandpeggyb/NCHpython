@@ -1,7 +1,7 @@
 from pyad.adquery import ADQuery as ADQuery
 from pyad import *
 
-def GetMembersByEmail(groupEmail):
+def GetMembersByCNname(CNname):
     pyad.set_defaults(ldap_server = 'RPW-DC03.crii.org')
     # user=pyad.aduser.ADUser.from_cn('Blake, Steve (csb003)')
 
@@ -11,17 +11,18 @@ def GetMembersByEmail(groupEmail):
 
     q.execute_query(
         attributes = ["name", "cn", "member"],
-        where_clause = "CN='groupEmail'"
+        where_clause = "CN='CNname'",
+        base_dn="DC=crii,DC=org"
     )
     results = q.get_results()
-    charLength = len(groupEmail)
+    charLength = len(CNname)
     for row in q.get_results():
-        if str(row["cn"])[:charLength] == groupEmail:
+        if str(row["cn"])[:charLength] == CNname:
             print(row["member"])
             output = row["member"]
             return output
 
-Members = GetMembersByEmail("bcrinformatics")
+Members = GetMembersByCNname("bcrinformatics")
 
 print()
 for member in Members:

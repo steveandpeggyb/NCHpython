@@ -52,17 +52,19 @@ def SendHTMLemail(toEmail, fromEmail, subject, body):
 def email_sender(input_message, email_to, WebSite):
     ''' function to send email '''
     to = email_to
-    gmail_user = '' ## email of sender account
-    gmail_pwd = '' ## password of sender account
-    smtpserver = smtplib.SMTP("smtp.gmail.com",587)
+    OrigEmail = 'steve.blake@nationwidechildrens.org'
+    # gmail_user = '' ## email of sender account
+    # gmail_pwd = '' ## password of sender account
+    # smtpserver = smtplib.SMTP("smtp.gmail.com",587)
+    smtpserver = smtplib.SMTP('xmail.nationwidechildrens.org')
     smtpserver.ehlo()
     smtpserver.starttls()
     smtpserver.ehlo
-    smtpserver.login(gmail_user, gmail_pwd)
-    header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:site down! \n'
+    # smtpserver.login(gmail_user, gmail_pwd)
+    header = 'To:' + to + '\n' + 'From: ' + OrigEmail + '\n' + 'Subject:site down! \n'
     input_message = input_message + WebSite
     msg = header + input_message
-    smtpserver.sendmail(gmail_user, to, msg)
+    smtpserver.sendmail(OrigEmail, to, msg)
     smtpserver.close()
 
 ## list of sites to track along with email address to send the alert

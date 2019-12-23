@@ -1,4 +1,5 @@
 import m3u8
+import subprocess
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm_notebook as tqdm
@@ -36,4 +37,4 @@ with open("C:/Users/csb003/Documents/NCHpython/VideoDownload/video.ts", 'wb') as
         r = sess.get(segment_uri)
         f.write(r.content)
 
-subprocess.run(['ffmpeg', '-i', 'C:/Users/csb003/Documents/NCHpython/VideoDownload/video.ts', 'C:/Users/csb003/Documents/NCHpython/VideoDownload/video.mp4'])
+subprocess.run(['ffmpeg', '-i', 'video.ts', 'video.mp4'])

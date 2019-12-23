@@ -7,13 +7,20 @@ import csv
 
 
 def ShowData():                                 #   Show the data on the terminal
+    
     print("User List:")
     users.sort()
     for u in users:
         print("\t",u)
+    
     print("\r\nGroups processed:")
-    users.sort()
+    IDgroups.sort()
     for i in IDgroups:
+        print("\t",i)
+
+    print("\r\nTrash Can:")
+    Trashcan.sort()
+    for i in Trashcan:
         print("\t",i)
 def EmailData():                                #   Construct the email content from provided details.
     body_text = '<strong>The following users have privileged user access to the BCR <span style="background-color: #FFFF00"><font color=#8B0E80>RPW-BCRSQL02</font></span> (Production).<p>'
@@ -121,6 +128,7 @@ users = []                                      #   Known Users from a group or 
 members = []                                    #   Members of a group being processed
 IDgroups = []                                   #   All distinct groups processed
 HospitalList = []                               #   Raw Hospital users and groups
+Trashcan = []                                   #   Items that was not found
 list = UserData()                               #   raw list to be processed
 InitialPass = True                              #   First time through, processing
 
@@ -132,19 +140,25 @@ while len(list)>0:                              #   Process the users and Groups
             results = QryUser(username)
         else:                                   #   Initial pass (False) looks at AD attribute "name"
             results = QryName(username)
+
+        
         for r in results:                       #   process all CSV items
             if r['displayName'] == None:
-                NAME = r['name']
+                if r['name'] == None:
+                    NAME = 'UNKNOWN'
+                else:
+                    NAME = r['name']
             else:
                 NAME = r['displayName']
             MEMBER = r['member']
             sAMAccountType = r['sAMAccountType']
             sAMAccountName = r['sAMAccountName']
             if sAMAccountType == 268435456:                 #   Process group
-                if sAMAccountName not in IDgroups:          #   Keep track of all groups processed
-                    IDgroups.append(r['sAMAccountName'] + '\t(' + str(len(r['member'])) + ') members.')
+                GroupData = r['sAMAccountName'] + '\t(' + str(len(r['member'])) + ') members.'
+                if GroupData not in IDgroups:               #   Keep track of all groups processed
+                    IDgroups.append(GroupData)
                 if sAMAccountName not in group:             #   Log real groups
-                    group.append(r['sAMAccountName'])
+                    group.append(sAMAccountName)
                     if MEMBER == None:                      #   This group has no members
                         print('# No member in this group!')
                     else:                                   #   Process group members
@@ -156,9 +170,12 @@ while len(list)>0:                              #   Process the users and Groups
                             sandbox = sandbox.replace('\\','')
                             if sandbox not in members:
                                 members.append(sandbox)
-            else:                                           #   Process Users
+            elif sAMAccountType == 805306368:               #   Process Users
                 if NAME not in users:                       #   Log real users
-                    users.append(NAME)
+                    users.append(NAME)                
+            else:                                           #   Unknown Users
+                if NAME not in Trashcan:                       #   Log real users
+                    Trashcan.append(NAME)
     del list[:]
     for m in members:
         list.append(m)

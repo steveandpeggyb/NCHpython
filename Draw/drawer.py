@@ -8,7 +8,7 @@ import os
 '''
     Preprocess image and make contours (getting vertices of edges).
 '''
-image_location = 'C:/Users/csb003/Documents/NCHpython/Draw/Whale.jpg'
+image_location = 'C:/Users/csb003/Documents/NCHpython/Draw/Peggy.jpg'
 
 x_length = 1200 # make x axis have this length. Different values will probably need different preprocessing arguments
 im = cv2.imread(image_location, 0)

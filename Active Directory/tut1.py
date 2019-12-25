@@ -4,10 +4,9 @@ from ldap3 import NTLM
 
 LDAP_AUTHENTICATION = NTLM
 
-server = Server('RPW-DC03.crii.org')
-# conn = Connection(server, 'uid=admin, cn=users, cn=accounts, dc=demo1, dc=freeipa, dc=org', 'Secret123', auto_bind=True)
+server = Server('RPW-DC03.crii.org') # RPW-DC03.CRII.ORG (hospital?)  l1pnchwdcc01.columbuschildrens.net (Hospital?)
 conn = Connection(server, auto_bind=True)
-# print(0, conn.extend.standard.who_am_i())
+print(0, conn.extend.standard.who_am_i())
 
 print(server.schema)
 print(server.info)

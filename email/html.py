@@ -7,8 +7,10 @@ from email.mime.text import MIMEText
 def SendHTMLemail(toEmail, fromEmail, subject, body):
     # me == my email address
     # you == recipient's email address
-    fromEmail = "steve.blake@nationwidechildrens.org"
-    toEmail = "steve.blake@nationwidechildrens.org"
+    if fromEmail == None:
+        fromEmail = "steve.blake@nationwidechildrens.org"
+    if toEmail == None:
+        toEmail = "steve.blake@nationwidechildrens.org"
 
     # Create message container - the correct MIME type is multipart/alternative.
     msg = MIMEMultipart('alternative')
@@ -44,4 +46,8 @@ def SendHTMLemail(toEmail, fromEmail, subject, body):
     s.sendmail(fromEmail, toEmail, msg.as_string())
     s.quit()
 
-SendHTMLemail('steve.blake@nationwidechildrens.org', 'steve.blake@nationwidechildrens.org', 'Test email', '<strong><font color=blue>Welcome</font></strong> to this world.')
+SendHTMLemail(  toEmail=    '16144778613@vtext.com', 
+                fromEmail=  'steve.blake@nationwidechildrens.org', 
+                subject=    'Test email', 
+                body=       '<strong><font color=blue>Welcome</font></strong> to this world.'
+            )

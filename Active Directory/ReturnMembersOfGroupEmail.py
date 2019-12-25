@@ -10,18 +10,18 @@ def GetMembersByEmail(groupEmail):
     q = ADQuery()
 
     q.execute_query(
-        attributes = ["mail", "givenName", "cn", "member"],
-        where_clause = "objectClass = '*'"
+        attributes = ["name", "cn", "member"],
+        where_clause = "CN='groupEmail'"
     )
     results = q.get_results()
     charLength = len(groupEmail)
     for row in q.get_results():
-        if str(row["mail"])[:charLength] == groupEmail:
+        if str(row["cn"])[:charLength] == groupEmail:
             print(row["member"])
             output = row["member"]
             return output
 
-Members = GetMembersByEmail("BCRInformaticsDatabaseTeam@nationwidechildrens.org")
+Members = GetMembersByEmail("bcrinformatics")
 
 print()
 for member in Members:

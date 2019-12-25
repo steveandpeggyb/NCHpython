@@ -1,0 +1,11 @@
+Youtube.com --> https://www.youtube.com/watch?v=bytnxnZFLeg&t=1134s
+GitHub.com ---> https://gist.github.com/nikhilkumarsingh/197dcb3e4bd81ef50dc28d565010ab18
+
+for non-blob videos:
+    In Chrome, right-click on the webpage (outside the video pane) and select [inspect]
+    click the top-left tool and click the video.
+    copy the last URL that shows up in the diagnostic screen
+    Paste the URL into the python program and run.
+
+for blob videos:
+    

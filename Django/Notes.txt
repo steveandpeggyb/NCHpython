@@ -1,0 +1,25 @@
+>>> pip install django==1.11.7
+https://www.lynda.com/Django-tutorials/Install-Python-Django/656811/704076-4.html?srchtrk=index%3a3%0alinktypeid%3a2%0aq%3adjango%0apage%3a1%0as%3arelevance%0asa%3atrue%0aproducttypeid%3a2
+
+>>> django-admin startproject projectname (make sure you are in the folder where the project will be located)
+
+in the termainal, cd projectname
+
+>>> python manage.py runserver
+
+>>> python manage.py startapp AppName
+
+Within projectname folder, then again into projectname (again) and edit the settings.py file to include the new app just added
+Look for "INSTALLED_APPS" and add a new line called 'AppName' with a trailing comma ","
+
+within the AppName folder, configure models (classes)
+
+Migrating the DB
+
+>>> python manage.py makemigrations
+>>> python manage.py showmigrations
+>>> python manage.py migrate
+>>> migrate <appname> <number>
+i.e. migrate adoptions 1
+
+

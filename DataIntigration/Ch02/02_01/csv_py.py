@@ -4,6 +4,7 @@ import csv
 from collections import namedtuple
 from datetime import datetime
 
+FilePath = 'C:/Users/csb003/Documents/NCHpython/DataIntigration/Ch02/02_01/taxi.csv.bz2'
 Column = namedtuple('Column', 'src dest convert')
 
 
@@ -36,7 +37,7 @@ def iter_records(file_name):
 def example():
     from pprint import pprint
 
-    for i, record in enumerate(iter_records('taxi.csv.bz2')):
+    for i, record in enumerate(iter_records(FilePath)):
         if i >= 10:
             break
         pprint(record)

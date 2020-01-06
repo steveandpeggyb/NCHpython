@@ -3,6 +3,7 @@
 import json
 from datetime import datetime, timedelta
 
+FilePath = 'C:/Users/csb003/Documents/NCHpython/DataIntigration/Ch02/02_05/taxi.jl'
 
 def parse_time(ts):
     """
@@ -25,7 +26,7 @@ def pairs_hook(pairs):
 
 
 durations = []
-with open('taxi.jl') as fp:
+with open(FilePath) as fp:
     for line in fp:
         obj = json.loads(line, object_pairs_hook=pairs_hook)
         duration = obj['dropoff'] - obj['pickup']

@@ -5,6 +5,7 @@ import xml.etree.ElementTree as xml
 
 import pandas as pd
 
+FilePath = 'C:/Users/csb003/Documents/NCHpython/DataIntigration/Ch02/02_01/taxi.xml.bz2'
 # Data conversions
 conversion = [
     ('vendor', int),

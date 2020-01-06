@@ -4,6 +4,7 @@ import logging
 import re
 from datetime import datetime
 
+FilePath = 'C:/Users/csb003/Documents/NCHpython/DataIntigration/Ch02/02_04/taxi.log.bz2'
 
 def parse_line(line):
     # Example:
@@ -35,7 +36,7 @@ def iter_rides(file_name):
 if __name__ == '__main__':
     from pprint import pprint
 
-    for n, ride in enumerate(iter_rides('taxi.log.bz2')):
+    for n, ride in enumerate(iter_rides(FilePath)):
         if n > 5:
             break
         pprint(ride)

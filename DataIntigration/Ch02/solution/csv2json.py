@@ -5,6 +5,7 @@ import json
 from collections import namedtuple
 from datetime import datetime
 
+FilePath = 'C:/Users/csb003/Documents/NCHpython/DataIntigration/Ch02/solution/taxi.csv.bz2'
 Column = namedtuple('Column', 'src dest convert')
 
 
@@ -40,7 +41,7 @@ def encode_time(obj):
     return obj.isoformat()
 
 
-with open('taxi.jl', 'w') as out:
-    for record in iter_records('taxi.csv.bz2'):
+with open('C:/Users/csb003/Documents/NCHpython/DataIntigration/Ch02/solution/taxi.jl', 'w') as out:
+    for record in iter_records(FilePath):
         data = json.dumps(record, default=encode_time)
-        out.write(f'{data}\n')
+        out.write(f'{data}/n')

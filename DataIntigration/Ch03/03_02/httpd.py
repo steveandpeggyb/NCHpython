@@ -48,7 +48,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    host, port = 'localhost', 8989
+    host, port = 'localhost', 8988
     server = ThreadingHTTPServer((host, port), Handler)
     trips_db = load_trips()
     print(f'server ready on {host}:{port}')

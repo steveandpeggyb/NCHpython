@@ -15,8 +15,7 @@ def download(url):
 
 urls = [
     (
-        'https://geolite.maxmind.com/download/geoip/database/'
-        'GeoLite2-Country-CSV.zip'
+        'https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country-CSV.zip'
     ),
     'ftp://ita.ee.lbl.gov/traces/NASA_access_log_Aug95.gz',
 ]

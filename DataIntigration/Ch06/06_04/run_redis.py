@@ -7,7 +7,7 @@ from time import monotonic, sleep
 from redis import Redis, RedisError
 
 here = Path(__file__).absolute().parent
-data_file = here / 'C:/Users/csb003/Documents/NCHpython/DataIntigration/Ch06/06_04/commerce.jl'
+data_file = here / 'commerce.jl'
 
 port = 6379
 

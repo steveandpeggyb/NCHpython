@@ -4,7 +4,7 @@ Created on Jul 31, 2016
 '''
 
 
-OWM_API_KEY = '8829cb99e4783abbb9311bf665e03b22'
+OWM_API_KEY = '809a30fd915d98a423fec866a63b537b'
 
 
 

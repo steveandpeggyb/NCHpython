@@ -138,7 +138,7 @@ ttk.Label(weather_cities_frame, text="Weather Station ID: ").grid(column=0, row=
 station_id = tk.StringVar()
 station_id_combo = ttk.Combobox(weather_cities_frame, width=6, textvariable=station_id)   
                         # Los Angeles, Denver, New York City       
-station_id_combo['values'] = ('KLAX', 'KDEN', 'KNYC')
+station_id_combo['values'] = ('KCMH', 'KDEN', 'KNYC')
 station_id_combo.grid(column=1, row=0)
 station_id_combo.current(0)                 # highlight first city station id
 

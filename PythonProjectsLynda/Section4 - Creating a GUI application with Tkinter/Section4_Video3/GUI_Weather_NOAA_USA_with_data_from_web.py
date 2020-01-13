@@ -137,7 +137,7 @@ ttk.Label(weather_cities_frame, text="Weather Station ID: ").grid(column=0, row=
 station_id = tk.StringVar()
 station_id_combo = ttk.Combobox(weather_cities_frame, width=6, textvariable=station_id)   
                         # Los Angeles, Denver, New York City       
-station_id_combo['values'] = ('KLAX', 'KDEN', 'KNYC')
+station_id_combo['values'] = ('KCMH', 'KDEN', 'KNYC')
 station_id_combo.grid(column=1, row=0)
 station_id_combo.current(0)                 # highlight first city station id
 
@@ -190,7 +190,7 @@ def get_weather_data(station_id='KLAX'):
     # Using ElementTree to retrieve specific tags from the xml
     import xml.etree.ElementTree as ET
     xml_root = ET.fromstring(content)
-    print('xml_root: {}\n'.format(xml_root.tag))
+    print('xml_root: {}/n'.format(xml_root.tag))
     
     for data_point in weather_data_tags_dict.keys():
         weather_data_tags_dict[data_point] = xml_root.find(data_point).text
@@ -203,8 +203,8 @@ def populate_gui_from_dict():
     location.set(weather_data_tags_dict['location'])
     updated.set(weather_data_tags_dict['observation_time'].replace('Last Updated on ', ''))
     weather.set(weather_data_tags_dict['weather'])
-    temp.set('{} \xb0F  ({} \xb0C)'.format(weather_data_tags_dict['temp_f'], weather_data_tags_dict['temp_c']))
-    dew.set('{} \xb0F  ({} \xb0C)'.format(weather_data_tags_dict['dewpoint_f'], weather_data_tags_dict['dewpoint_c']))
+    temp.set('{} /xb0F  ({} /xb0C)'.format(weather_data_tags_dict['temp_f'], weather_data_tags_dict['temp_c']))
+    dew.set('{} /xb0F  ({} /xb0C)'.format(weather_data_tags_dict['dewpoint_f'], weather_data_tags_dict['dewpoint_c']))
     rel_humi.set(weather_data_tags_dict['relative_humidity'] + ' %')
     wind.set(weather_data_tags_dict['wind_string'])
     visi.set(weather_data_tags_dict['visibility_mi'] + ' miles')
@@ -272,7 +272,7 @@ def get_city_station_ids(state='ca'):
     for idx in range(len(parser.stations)):
         city_station = parser.cities[idx] + ' (' + parser.stations[idx] + ')'
         print(city_station)
-        scr.insert(tk.INSERT, city_station + '\n')
+        scr.insert(tk.INSERT, city_station + '/n')
     
 #     print(parser.stations)
 #     print(parser.cities)
@@ -312,15 +312,15 @@ weather_images_frame.grid(column=0, row=0, padx=8, pady=4)
 import PIL.Image
 import PIL.ImageTk
 
-im = PIL.Image.open("few_clouds.png")
+im = PIL.Image.open("C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section4 - Creating a GUI application with Tkinter/Section4_Video3/few_clouds.png")
 photo = PIL.ImageTk.PhotoImage(im)
 ttk.Label(weather_images_frame, image=photo).grid(column=0, row=0) 
 
-im = PIL.Image.open("night_few_clouds.png")
+im = PIL.Image.open("C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section4 - Creating a GUI application with Tkinter/Section4_Video3/night_few_clouds.png")
 photo1 = PIL.ImageTk.PhotoImage(im)
 ttk.Label(weather_images_frame, image=photo1).grid(column=1, row=0) 
 
-im = PIL.Image.open("night_fair.png")
+im = PIL.Image.open("C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section4 - Creating a GUI application with Tkinter/Section4_Video3/night_fair.png")
 photo2 = PIL.ImageTk.PhotoImage(im)
 ttk.Label(weather_images_frame, image=photo2).grid(column=2, row=0) 
 

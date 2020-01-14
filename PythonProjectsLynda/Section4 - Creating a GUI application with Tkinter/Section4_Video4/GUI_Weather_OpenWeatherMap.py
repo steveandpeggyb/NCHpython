@@ -192,7 +192,7 @@ def get_weather_data(station_id='KLAX'):
     # Using ElementTree to retrieve specific tags from the xml
     import xml.etree.ElementTree as ET
     xml_root = ET.fromstring(content)
-#     print('xml_root: {}\n'.format(xml_root.tag))
+#     print('xml_root: {}/n'.format(xml_root.tag))
     
     for data_point in weather_data_tags_dict.keys():
         weather_data_tags_dict[data_point] = xml_root.find(data_point).text
@@ -205,8 +205,8 @@ def populate_gui_from_dict():
     location.set(weather_data_tags_dict['location'])
     updated.set(weather_data_tags_dict['observation_time'].replace('Last Updated on ', ''))
     weather.set(weather_data_tags_dict['weather'])
-    temp.set('{} \xb0F  ({} \xb0C)'.format(weather_data_tags_dict['temp_f'], weather_data_tags_dict['temp_c']))
-    dew.set('{} \xb0F  ({} \xb0C)'.format(weather_data_tags_dict['dewpoint_f'], weather_data_tags_dict['dewpoint_c']))
+    temp.set('{} /xb0F  ({} /xb0C)'.format(weather_data_tags_dict['temp_f'], weather_data_tags_dict['temp_c']))
+    dew.set('{} /xb0F  ({} /xb0C)'.format(weather_data_tags_dict['dewpoint_f'], weather_data_tags_dict['dewpoint_c']))
     rel_humi.set(weather_data_tags_dict['relative_humidity'] + ' %')
     wind.set(weather_data_tags_dict['wind_string'])
     visi.set(weather_data_tags_dict['visibility_mi'] + ' miles')
@@ -274,7 +274,7 @@ def get_city_station_ids(state='ca'):
     for idx in range(len(parser.stations)):
         city_station = parser.cities[idx] + ' (' + parser.stations[idx] + ')'
 #         print(city_station)
-        scr.insert(tk.INSERT, city_station + '\n')
+        scr.insert(tk.INSERT, city_station + '/n')
     
 #     print(parser.stations)
 #     print(parser.cities)
@@ -314,15 +314,15 @@ weather_images_frame.grid(column=0, row=0, padx=8, pady=4)
 import PIL.Image
 import PIL.ImageTk
 
-im = PIL.Image.open("few_clouds.png")
+im = PIL.Image.open("C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section4 - Creating a GUI application with Tkinter/Section4_Video4/few_clouds.png")
 photo = PIL.ImageTk.PhotoImage(im)
 ttk.Label(weather_images_frame, image=photo).grid(column=0, row=0) 
 
-im = PIL.Image.open("night_few_clouds.png")
+im = PIL.Image.open("C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section4 - Creating a GUI application with Tkinter/Section4_Video4/night_few_clouds.png")
 photo1 = PIL.ImageTk.PhotoImage(im)
 ttk.Label(weather_images_frame, image=photo1).grid(column=1, row=0) 
 
-im = PIL.Image.open("night_fair.png")
+im = PIL.Image.open("C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section4 - Creating a GUI application with Tkinter/Section4_Video4/night_fair.png")
 photo2 = PIL.ImageTk.PhotoImage(im)
 ttk.Label(weather_images_frame, image=photo2).grid(column=2, row=0) 
 
@@ -433,7 +433,7 @@ for child in open_weather_conditions_frame.winfo_children():
 #########################################################################################
 # OpenWeatherMap Data collection
 
-from Section1_Video4.API_key import OWM_API_KEY
+from API_key import OWM_API_KEY
 from urllib.request import urlopen
 import json
 
@@ -495,7 +495,7 @@ def get_open_weather_data(city='London,uk'):
     open_weather.set(owm_weather)
     temp_fahr = kelvin_to_fahrenheit(temp_kelvin)
     temp_cels = kelvin_to_celsius(temp_kelvin)
-    open_temp.set('{} \xb0F  ({} \xb0C)'.format(temp_fahr, temp_cels))
+    open_temp.set('{} /xb0F  ({} /xb0C)'.format(temp_fahr, temp_cels))
     open_rel_humi.set('{} %'.format(humidity))
     wind_speed_mph = mps_to_mph(wind_speed_meter_sec)
     open_wind.set('{} degrees at {} MPH'.format(wind_deg, wind_speed_mph))

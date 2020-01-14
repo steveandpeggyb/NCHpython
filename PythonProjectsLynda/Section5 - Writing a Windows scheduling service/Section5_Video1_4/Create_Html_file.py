@@ -27,7 +27,7 @@ def create_html_report(data_dict, icon_url, html_file):
 #===========================================
 if __name__ == '__main__':
     from Get_Weather_Data import get_weather_data
-    weather_dict, icon = get_weather_data('KLAX')
-    create_html_report(weather_dict, icon, "Test_Email_File.html")
+    weather_dict, icon = get_weather_data('KCMH')
+    create_html_report(weather_dict, icon, "C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section5 - Writing a Windows scheduling service/Section5_Video1_4/Test_Email_File.html")
     
                 

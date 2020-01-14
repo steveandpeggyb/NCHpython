@@ -23,6 +23,7 @@ def send_gmail(msg_file):
     msg['To'] = 'steveblake1nch@gmail.com, steve.blake@nationwidechildrens.com'     # NO list!       
     
     server = smtplib.SMTP('smtp.gmail.com', port=587)
+    # server = smtplib.SMTP('xmail.nationwidechildrens.org')
     server.ehlo()       # Extended Hello
     server.starttls()   # Put the SMTP connection in TLS (Transport Layer Security) mode.  
     server.ehlo()       # All SMTP commands that follow will be encrypted.
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     from Get_Weather_Data import get_weather_data
     from Create_Html_file import create_html_report 
     weather_dict, icon = get_weather_data('KCMH')    
-    email_file = "Test_Email_File.html"
+    email_file = "C:/Users/csb003/Documents/NCHpython/PythonProjectsLynda/Section5 - Writing a Windows scheduling service/Section5_Video1_4/Test_Email_File.html"
     create_html_report(weather_dict, icon, email_file)
     send_gmail(email_file)
     

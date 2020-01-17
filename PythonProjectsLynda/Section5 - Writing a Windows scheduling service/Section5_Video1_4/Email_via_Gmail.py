@@ -19,11 +19,10 @@ def send_gmail(msg_file):
         msg = MIMEText(message.read(), 'html', 'html')      # Create html message
     
     msg['Subject'] = 'Hourly Weather {}'.format(datetime.now().strftime("%Y-%m-%d %H:%M"))
-    msg['From'] = 'nchtest@gmail.com'
+    msg['From'] = 'nchtest1234567@gmail.com'
     msg['To'] = 'steveblake1nch@gmail.com, steve.blake@nationwidechildrens.com'     # NO list!       
     
     server = smtplib.SMTP('smtp.gmail.com', port=587)
-    # server = smtplib.SMTP('xmail.nationwidechildrens.org')
     server.ehlo()       # Extended Hello
     server.starttls()   # Put the SMTP connection in TLS (Transport Layer Security) mode.  
     server.ehlo()       # All SMTP commands that follow will be encrypted.

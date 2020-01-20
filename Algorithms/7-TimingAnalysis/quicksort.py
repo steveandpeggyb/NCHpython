@@ -50,7 +50,7 @@ def partition(datavalues, first, last):
     return upper
 
 
-# test the merge sort with data
-print(items)
-quickSort(items, 0, len(items)-1)
-print(items)
+# # test the merge sort with data
+# print(items)
+# quickSort(items, 0, len(items)-1)
+# print(items)

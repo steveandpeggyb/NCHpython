@@ -11,6 +11,6 @@ psycopg2==2.7.3.2
 python==3.6.4
 pyzmq==16.0.3
 redis==2.10.6
-requests==2.18.4
+requests==2.20.0
 pybloom_live==2.3.1
 influxdb==5.0.0

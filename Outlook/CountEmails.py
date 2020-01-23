@@ -120,6 +120,4 @@ for account in accounts:
                 print("..."+y.name,file=f)
                 print("*************************************************", file=f)
 
-
-
 print("Finished Succesfully")

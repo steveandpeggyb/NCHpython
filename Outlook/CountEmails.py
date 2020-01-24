@@ -6,7 +6,7 @@
 
 # pip install pywin32
 # We should connect to Outlook by MAPI
-
+import win32com.client
 outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
 # Then we should get all accounts in your outlook profile.
 
@@ -95,7 +95,7 @@ def emailleri_al(folder):
                  pass
 
 for account in accounts:
-    global inbox
+    # global inbox
     inbox = outlook.Folders(account.DeliveryStore.DisplayName)
     print("****Account Name**********************************",file=f)
     print(account.DisplayName,file=f)
@@ -111,7 +111,7 @@ for account in accounts:
         a = len(folder.folders)
 
         if a>0 :
-            global z
+            # global z
             z = outlook.Folders(account.DeliveryStore.DisplayName).Folders(folder.name)
             x = z.Folders
             for y in x:

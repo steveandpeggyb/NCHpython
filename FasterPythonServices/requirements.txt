@@ -1,4 +1,4 @@
-aiohttp==3.0.7
+aiohttp==3.7.4
 asyncpg==0.15.0
 celery==4.1.0
 uwsgi==2.0.15
